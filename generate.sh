@@ -1,0 +1,12 @@
+#!/bin/bash
+
+source profile/.profile
+source themes/dracula.sh
+
+envsubst <alacritty/.config/alacritty/alacritty.toml.template \
+  >alacritty/.config/alacritty/alacritty.toml
+
+envsubst '${FONT_SIZE}' <i3/.config/i3/config.template \
+  >i3/.config/i3/config
+
+echo $BG

@@ -1,0 +1,13 @@
+#!/bin/bash
+export BG="#282a36"
+export FG="#f8f8f2"
+export HIGHLIGHT="#44475a"
+export SELECTION="#44475a"
+export COMMENT="#6272a4"
+export ACCENT1="#8be9fd"
+export ACCENT2="#50fa7b"
+export ACCENT3="#ffb86c"
+export ACCENT4="#ff79c6"
+export ACCENT5="#bd93f9"
+export ACCENT6="#ff5555"
+export ACCENT7="#f1fa8c"
