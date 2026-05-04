@@ -94,6 +94,10 @@ sudo dnf install numix-icon-theme-circle -y
 sudo dnf install lxappearance -y
 sudo dnf install polybar -y
 sudo dnf install rofi -y
+## azote
+sudo dnf install -y python3-pip python3-xlib libavif libavif-devel
+pip install --user --upgrade pillow-heif
+pip install --user --upgrade Pillow
 
 # opencode
 curl -fsSL https://opencode.ai/install | bash
