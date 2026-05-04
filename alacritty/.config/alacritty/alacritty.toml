@@ -1,5 +1,5 @@
 [window]
-opacity = 0.30
+opacity = 0.75
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
@@ -18,11 +18,11 @@ family = "JetBrainsMono Nerd Font"
 style = "Bold Italic"
 
 [font]
-size = 12
+size = 10
 
 [colors.primary]
 
-background = "#282a36"
+background = "#000000"
 foreground = "#f8f8f2"
 bright_foreground = "#ffffff"
 
