@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-PACKAGES := alacritty bash gtk-3.0 i3 i3status nvim profile wallpaper picom polybar rofi btop starship
+PACKAGES := alacritty bash gtk-3.0 i3 i3status nvim profile wallpaper picom polybar rofi btop starship fastfetch
 
 #PHONY hace que siempre se ejecute la accion asociada en el Makefile
 .PHONY: help fedora-basic fedora-i3 stow unstow generate status clean
