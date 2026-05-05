@@ -35,3 +35,4 @@ alias nano="micro"
 
 # opencode
 export PATH=/home/datadiego/.opencode/bin:$PATH
+eval "$(starship init bash)"
