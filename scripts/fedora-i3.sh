@@ -101,3 +101,6 @@ pip install --user --upgrade Pillow
 
 # opencode
 curl -fsSL https://opencode.ai/install | bash
+
+# starship
+curl -sS https://starship.rs/install.sh | sh -s -- --yes
