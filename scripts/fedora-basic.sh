@@ -9,7 +9,7 @@ git config --global user.email "$git_email"
 sudo dnf update -y
 
 # utilidades
-sudo dnf install pipx unzip xclip yq jq fzf stow -y
+sudo dnf install pipx unzip xclip yq jq fzf stow starship -y
 
 # zoxide
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
