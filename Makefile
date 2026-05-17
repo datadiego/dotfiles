@@ -27,7 +27,7 @@ stow-gnome: ## Stow de paquetes para GNOME
 	done
 
 stow-i3: ## Stow de paquetes para i3
-	@for pkg in $(PACKAGES_GNOME); do \
+	@for pkg in $(PACKAGES_I3); do \
 		echo "Stowing $$pkg..."; \
 		stow -S "$$pkg"; \
 	done
