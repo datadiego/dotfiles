@@ -1,1 +1,1 @@
-sudo cp ../wallpaper/.config/* /usr/share/backgrounds/
+sudo cp ./wallpaper/.config/* /usr/share/backgrounds/
