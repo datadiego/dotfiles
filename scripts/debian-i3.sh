@@ -69,6 +69,7 @@ pipx install csvkit
 
 # entorno i3
 sudo apt install i3 -y
+sudo apt install feh -y
 sudo apt install picom -y
 sudo apt install alacritty -y
 sudo apt install -y arc-theme -y
