@@ -102,16 +102,15 @@ sudo apt install picom -y
 sudo apt install alacritty -y
 sudo apt install -y arc-theme -y
 sudo apt install papirus-icon-theme -y
-sudo apt copr enable numix/numix -y
 sudo apt install numix-icon-theme-circle -y
 sudo apt install lxappearance -y
 sudo apt install polybar -y
 sudo apt install rofi -y
 
 ## azote
-sudo apt install -y python3-pip python3-xlib libavif libavif-devel
-pip install --user --upgrade pillow-heif
-pip install --user --upgrade Pillow
+#sudo apt install -y python3-pip python3-xlib libavif libavif-devel
+#pip install --user --upgrade pillow-heif
+#pip install --user --upgrade Pillow
 
 # opencode
 curl -fsSL https://opencode.ai/install | bash

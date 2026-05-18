@@ -25,8 +25,6 @@ debian-i3:  ## Instala dependencias para Debian i3
 	@rm -rf ~/.config/nvim/
 	@rm ~/.bashrc
 	@rm ~/.profile
-	@make stow-i3
-	@echo 'export PATH="$PATH:/opt/nvim-linux-x86_64/bin"' >> ~/.bashrc
 
 stow-gnome: ## Stow de paquetes para GNOME
 	@for pkg in $(PACKAGES_GNOME); do \
