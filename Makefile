@@ -20,6 +20,9 @@ fedora-gnome:  ## Instala dependencias para Fedora GNOME
 fedora-i3:  ## Instala dependencias para Fedora i3
 	@bash scripts/fedora-i3.sh
 
+debian-i3:  ## Instala dependencias para Debian i3
+	@bash scripts/debian-i3.sh
+
 stow-gnome: ## Stow de paquetes para GNOME
 	@for pkg in $(PACKAGES_GNOME); do \
 		echo "Stowing $$pkg..."; \
