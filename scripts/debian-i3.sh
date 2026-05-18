@@ -12,11 +12,11 @@ sudo apt upgrade -y
 # utilidades
 sudo apt install pipx unzip xclip yq jq fzf stow -y
 
-# zoxide
-curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
-
 # peticiones http
 sudo apt install curl wget httpie -y
+
+# zoxide
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 
 #sql
 sudo apt install sqlite3 sqlitebrowser -y
