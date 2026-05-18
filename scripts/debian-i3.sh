@@ -7,6 +7,7 @@ git config --global user.email "$git_email"
 
 # update
 sudo apt update -y
+sudo apt upgrade -y
 
 # utilidades
 sudo apt install pipx unzip xclip yq jq fzf stow -y
@@ -21,10 +22,7 @@ sudo apt install curl wget httpie -y
 sudo apt install sqlite3 sqlitebrowser -y
 
 # vscode
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc &&
-  echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null
-apt check-update &&
-  sudo apt install code -y
+#TODO
 
 # Nerd fonts
 wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
@@ -70,6 +68,7 @@ rm -rf "$TMP_DIR"
 pipx install csvkit
 
 # entorno i3
+sudo apt install i3 -y
 sudo apt install picom -y
 sudo apt install alacritty -y
 sudo apt install -y arc-theme -y
