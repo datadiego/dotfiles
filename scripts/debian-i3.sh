@@ -10,7 +10,7 @@ sudo apt update -y
 sudo apt upgrade -y
 
 # utilidades
-sudo apt install pipx unzip xclip yq jq fzf stow -y
+sudo apt install pipx unzip xclip yq jq fzf btop stow -y
 
 # peticiones http
 sudo apt install curl wget httpie -y
@@ -23,7 +23,7 @@ sudo apt install sqlite3 sqlitebrowser -y
 
 # vscode
 wget -qO /tmp/vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
-sudo apt install /tmp/vscode.deb
+sudo apt install /tmp/vscode.deb -y
 
 # Nerd fonts
 wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
@@ -70,7 +70,9 @@ sudo usermod -aG docker $USER
 curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
 
 #neovim
-sudo apt install nvim -y
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+sudo rm -rf /opt/nvim-linux-x86_64
+sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 
 #lazyvim
 git clone https://github.com/LazyVim/starter ~/.config/nvim

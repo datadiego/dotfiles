@@ -22,6 +22,11 @@ fedora-i3:  ## Instala dependencias para Fedora i3
 
 debian-i3:  ## Instala dependencias para Debian i3
 	@bash scripts/debian-i3.sh
+	@rm -rf ~/.config/nvim/
+	@rm ~/.bashrc
+	@rm ~/.profile
+	@make stow-i3
+	@echo 'export PATH="$PATH:/opt/nvim-linux-x86_64/bin"' >> ~/.bashrc
 
 stow-gnome: ## Stow de paquetes para GNOME
 	@for pkg in $(PACKAGES_GNOME); do \
@@ -29,7 +34,7 @@ stow-gnome: ## Stow de paquetes para GNOME
 		stow -S "$$pkg"; \
 	done
 
-stow-i3: ## Stow de paquetes para i3
+stow-i3: ## Stow de paquetes para Fedora i3
 	@for pkg in $(PACKAGES_I3); do \
 		echo "Stowing $$pkg..."; \
 		stow -S "$$pkg"; \
