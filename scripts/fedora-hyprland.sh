@@ -6,13 +6,13 @@ git config --global user.name "$git_name"
 git config --global user.email "$git_email"
 
 sudo dnf copr enable sdegler/hyprland -y
-sudo dnf install hyprland hyprpaper hyprlock hypridle -y
+sudo dnf install hyprland hyprpaper hyprlock hypridle hyprsunset -y
 
 # update
 sudo dnf update -y
 
 # utilidades
-sudo dnf install pipx unzip xclip yq jq fzf stow -y
+sudo dnf install pipx unzip xclip yq jq fzf stow btop -y
 
 # starship
 curl -sS https://starship.rs/install.sh | sh
@@ -102,8 +102,11 @@ sudo dnf install waybar mako -y
 # Walker (app lanzador) - compilar desde fuente
 curl -fsSL https://github.com/abenz1267/walker/releases/latest/download/walker_Linux_x86_64.tar.gz | tar xz -C ~/.local/bin/
 
+# Terminal
+sudo dnf install alacritty -y
+
 # Utilidades Wayland
-sudo dnf install polkit-gnome playerctl brightnessctl pavucontrol grim slurp wl-clipboard -y
+sudo dnf install hyprpolkitagent network-manager-applet playerctl brightnessctl pavucontrol grim slurp wl-clipboard -y
 
 # Audio
 sudo dnf install pamixer -y

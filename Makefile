@@ -6,7 +6,7 @@ PACKAGES_GNOME := bash nvim btop starship fastfetch
 PACKAGES_HYPRLAND := alacritty bash gtk-3.0 hypr waybar walker mako nvim profile wallpaper btop starship fastfetch
 
 #PHONY hace que siempre se ejecute la accion asociada en el Makefile
-.PHONY: help fedora-basic fedora-i3 fedora-hyprland stow unstow generate status clean
+.PHONY: help fedora-basic fedora-i3 fedora-hyprland setup-hyprland stow unstow generate status clean
 
 help:  ## Muestra esta ayuda
 	@echo "Dotfiles"
@@ -21,8 +21,10 @@ fedora-gnome:  ## Instala dependencias para Fedora GNOME
 fedora-i3:  ## Instala dependencias para Fedora i3
 	@bash scripts/fedora-i3.sh
 
-fedora-hyprland:  ## Instala dependencias para Fedora Hyprland
+fedora-hyprland:  ## [1/2] Instala dependencias para Fedora Hyprland
 	@bash scripts/fedora-hyprland.sh
+
+setup-hyprland: fedora-hyprland stow-hyprland  ## Instala dependencias y stow para Hyprland (paso completo)
 
 debian-i3:  ## Instala dependencias para Debian i3
 	@bash scripts/debian-i3.sh
