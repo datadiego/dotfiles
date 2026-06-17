@@ -134,7 +134,10 @@ chmod +x ~/.local/bin/elephant ~/.config/elephant/plugins/*.so 2>/dev/null
 # Activar servicio de elephant
 ~/.local/bin/elephant service enable 2>/dev/null
 sed -i "s|ExecStart=elephant|ExecStart=$HOME/.local/bin/elephant|" ~/.config/systemd/user/elephant.service 2>/dev/null
+sed -i "s|graphical-session.target|default.target|g" ~/.config/systemd/user/elephant.service 2>/dev/null
+systemctl --user daemon-reload 2>/dev/null
 systemctl --user enable elephant.service 2>/dev/null
+systemctl --user start elephant.service 2>/dev/null
 
 # Terminal
 sudo dnf install alacritty -y
