@@ -6,7 +6,7 @@ git config --global user.name "$git_name"
 git config --global user.email "$git_email"
 
 sudo dnf copr enable sdegler/hyprland -y
-sudo dnf install hyprland
+sudo dnf install hyprland hyprpaper hyprlock hypridle -y
 
 # update
 sudo dnf update -y
@@ -15,7 +15,6 @@ sudo dnf update -y
 sudo dnf install pipx unzip xclip yq jq fzf stow -y
 
 # starship
-
 curl -sS https://starship.rs/install.sh | sh
 
 # zoxide
@@ -94,3 +93,33 @@ pipx install csvkit
 
 # opencode
 curl -fsSL https://opencode.ai/install | bash
+
+# ===== Entorno Hyprland =====
+
+# Status bar, notificaciones, lanzador
+sudo dnf install waybar mako -y
+
+# Walker (app lanzador) - compilar desde fuente
+curl -fsSL https://github.com/abenz1267/walker/releases/latest/download/walker_Linux_x86_64.tar.gz | tar xz -C ~/.local/bin/
+
+# Utilidades Wayland
+sudo dnf install polkit-gnome playerctl brightnessctl pavucontrol grim slurp wl-clipboard -y
+
+# Audio
+sudo dnf install pamixer -y
+
+# Bluetooth
+sudo dnf install bluez bluez-utils -y
+
+# GTK theming para Wayland
+sudo dnf install nwg-look qt5ct qt6ct -y
+
+# Tema GTK e iconos
+sudo dnf install arc-theme papirus-icon-theme -y
+
+# Screenshots
+pipx install hyprshot
+
+# Screenshots - grub tema (opcional)
+# gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
+# gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
