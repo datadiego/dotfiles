@@ -15,7 +15,7 @@ sudo dnf update -y
 sudo dnf install pipx unzip xclip yq jq fzf stow btop -y
 
 # starship
-curl -sS https://starship.rs/install.sh | sh
+curl -sS https://starship.rs/install.sh | sh -s -- -y
 
 # zoxide
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
@@ -70,10 +70,15 @@ curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/i
 sudo dnf install nvim -y
 
 #lazyvim
+rm -rf ~/.config/nvim
 git clone https://github.com/LazyVim/starter ~/.config/nvim
 rm -rf ~/.config/nvim/.git
 
-wget https://github.com/Strophox/tetro-tui/releases/download/v3.1.0/tetro-tui_v3.1_x86_64-unknown-linux-gnu.zip
+# Copiar init.lua personalizado de los dotfiles
+DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
+if [ -f "$DOTFILES_DIR/nvim/.config/nvim/init.lua" ]; then
+  cp "$DOTFILES_DIR/nvim/.config/nvim/init.lua" ~/.config/nvim/init.lua
+fi
 
 #tetro-tui
 URL="https://github.com/Strophox/tetro-tui/releases/download/v3.1.0/tetro-tui_v3.1_x86_64-unknown-linux-gnu.zip"
@@ -96,11 +101,40 @@ curl -fsSL https://opencode.ai/install | bash
 
 # ===== Entorno Hyprland =====
 
+mkdir -p ~/.local/bin
+
+# Portal para Hyprland (org.freedesktop.impl.portal.desktop.hyprland)
+sudo dnf install xdg-desktop-portal-hyprland -y
+
 # Status bar, notificaciones, lanzador
 sudo dnf install waybar mako -y
 
-# Walker (app lanzador) - compilar desde fuente
-curl -fsSL https://github.com/abenz1267/walker/releases/latest/download/walker_Linux_x86_64.tar.gz | tar xz -C ~/.local/bin/
+# Walker (app lanzador) - desde GitHub
+WALKER_URL=$(curl -fsSL https://api.github.com/repos/abenz1267/walker/releases/latest | grep "browser_download_url.*linux.*tar.gz" | cut -d'"' -f4 | head -1)
+curl -fsSL "$WALKER_URL" | tar xz -C ~/.local/bin/
+
+# Dependencia para walker
+sudo dnf install gtk4-layer-shell -y
+
+# Elephant (backend de walker) - desde GitHub
+ELEPHANT_URL=$(curl -fsSL https://api.github.com/repos/abenz1267/elephant/releases/latest | grep "browser_download_url.*linux-amd64.tar.gz" | grep "elephant-linux" | cut -d'"' -f4 | head -1)
+curl -fsSL "$ELEPHANT_URL" | tar xz -C ~/.local/bin/
+mv ~/.local/bin/elephant-linux-amd64 ~/.local/bin/elephant 2>/dev/null
+
+# Providers de elephant
+for PROVIDER in desktopapplications runner websearch calc clipboard files menus symbols unicode providerlist; do
+  URL=$(curl -fsSL https://api.github.com/repos/abenz1267/elephant/releases/latest | grep "browser_download_url.*linux-amd64.tar.gz" | grep "${PROVIDER}-linux" | cut -d'"' -f4 | head -1)
+  curl -fsSL "$URL" | tar xz -C ~/.local/bin/
+  mv ~/.local/bin/${PROVIDER}-linux-amd64 ~/.local/bin/elephant-${PROVIDER} 2>/dev/null
+done
+mkdir -p ~/.config/elephant/plugins
+mv ~/.local/bin/elephant-*.so ~/.config/elephant/plugins/ 2>/dev/null
+chmod +x ~/.local/bin/elephant ~/.config/elephant/plugins/*.so 2>/dev/null
+
+# Activar servicio de elephant
+~/.local/bin/elephant service enable 2>/dev/null
+sed -i "s|ExecStart=elephant|ExecStart=$HOME/.local/bin/elephant|" ~/.config/systemd/user/elephant.service 2>/dev/null
+systemctl --user enable elephant.service 2>/dev/null
 
 # Terminal
 sudo dnf install alacritty -y
