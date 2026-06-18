@@ -139,6 +139,24 @@ systemctl --user daemon-reload 2>/dev/null
 systemctl --user enable elephant.service 2>/dev/null
 systemctl --user start elephant.service 2>/dev/null
 
+# Fix: vars de display para servicios que arrancan antes que Hyprland
+# elephant (y otros servicios de usuario) se inician al login, antes de que
+# Hyprland establezca WAYLAND_DISPLAY, DISPLAY, etc. en el manager de systemd.
+# Sin estas vars, systemd-run --scope hereda un entorno sin display y las
+# apps GUI fallan silenciosamente.
+mkdir -p ~/.config/environment.d
+cat > ~/.config/environment.d/90-display.conf << 'ENVEOF'
+# Asegura vars de display para servicios de usuario (elephant, etc.)
+# que arrancan antes que Hyprland establezca el entorno gráfico.
+WAYLAND_DISPLAY=wayland-1
+DISPLAY=:0
+XDG_SESSION_TYPE=wayland
+ENVEOF
+systemctl --user set-environment WAYLAND_DISPLAY=wayland-1
+systemctl --user set-environment DISPLAY=:0
+systemctl --user set-environment XDG_SESSION_TYPE=wayland
+systemctl --user restart elephant.service
+
 # Codecs (RPM Fusion + ffmpeg completo para mkv, h264, hevc, etc)
 sudo dnf install \
   https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
