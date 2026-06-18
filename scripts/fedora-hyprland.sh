@@ -139,8 +139,37 @@ systemctl --user daemon-reload 2>/dev/null
 systemctl --user enable elephant.service 2>/dev/null
 systemctl --user start elephant.service 2>/dev/null
 
+# Codecs (RPM Fusion + ffmpeg completo para mkv, h264, hevc, etc)
+sudo dnf install \
+  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+  https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
+sudo dnf swap ffmpeg-free ffmpeg --allowerasing -y
+
+# Reproductor de vídeo (Wayland-native)
+sudo dnf install mpv -y
+
 # Terminal
 sudo dnf install alacritty -y
+
+# Gestor de archivos (nautilus)
+sudo dnf install nautilus -y
+
+# Tema oscuro para nautilus (libadwaita)
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
+# Fix: nautilus desde lanzadores (walker) en Hyprland
+# Usa un wrapper script con ruta absoluta + DBusActivatable=false
+mkdir -p ~/.local/bin ~/.local/share/applications
+cat > ~/.local/bin/nautilus-walker << 'WRAPPER'
+#!/bin/bash
+exec /usr/bin/nautilus --new-window "$@"
+WRAPPER
+chmod +x ~/.local/bin/nautilus-walker
+cp /usr/share/applications/org.gnome.Nautilus.desktop ~/.local/share/applications/
+sed -i "s|Exec=nautilus --new-window %U|Exec=$HOME/.local/bin/nautilus-walker %U|" ~/.local/share/applications/org.gnome.Nautilus.desktop
+sed -i "s|Exec=nautilus --new-window|Exec=$HOME/.local/bin/nautilus-walker|" ~/.local/share/applications/org.gnome.Nautilus.desktop
+sed -i 's/DBusActivatable=true/DBusActivatable=false/' ~/.local/share/applications/org.gnome.Nautilus.desktop
+update-desktop-database ~/.local/share/applications
 
 # Utilidades Wayland
 sudo dnf install hyprpolkitagent network-manager-applet playerctl brightnessctl pavucontrol grim slurp wl-clipboard -y
