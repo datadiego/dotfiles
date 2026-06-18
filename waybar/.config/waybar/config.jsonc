@@ -10,8 +10,7 @@
     "pulseaudio",
     "cpu",
     "memory",
-    "battery",
-    "tray"
+    "battery"
   ],
   "hyprland/workspaces": {
     "on-click": "activate",
@@ -84,9 +83,5 @@
     "format-icons": {
       "default": ["", "", ""]
     }
-  },
-  "tray": {
-    "icon-size": 12,
-    "spacing": 17
   }
 }
