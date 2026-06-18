@@ -194,13 +194,21 @@ sed -i 's/DBusActivatable=true/DBusActivatable=false/' ~/.local/share/applicatio
 update-desktop-database ~/.local/share/applications
 
 # Utilidades Wayland
-sudo dnf install hyprpolkitagent network-manager-applet playerctl brightnessctl pavucontrol grim slurp wl-clipboard -y
+sudo dnf install hyprpolkitagent playerctl brightnessctl pavucontrol grim slurp wl-clipboard -y
 
 # Audio
 sudo dnf install pamixer -y
 
 # Bluetooth
 sudo dnf install bluez bluez-utils -y
+
+# Network (iwd + impala)
+sudo dnf install iwd -y
+
+# Impala (TUI para iwd, reemplaza nm-applet)
+curl -fsSL https://github.com/pythops/impala/releases/download/v0.7.4/impala-x86_64-unknown-linux-musl \
+  -o ~/.local/bin/impala
+chmod +x ~/.local/bin/impala
 
 # GTK theming para Wayland
 sudo dnf install nwg-look qt5ct qt6ct -y
@@ -210,6 +218,29 @@ sudo dnf install arc-theme papirus-icon-theme -y
 
 # Screenshots
 pipx install hyprshot
+
+# ===== CAMBIO A NETWORKMANAGER + IWD (AL FINAL: REQUIERE REBOOT) =====
+# Los servicios iwd y wpa_supplicant no pueden coexistir gestionando la
+# misma interfaz WiFi. Se migra NetworkManager a backend iwd.
+sudo systemctl enable --now iwd
+
+mkdir -p /etc/NetworkManager/conf.d
+echo '[device]
+wifi.backend=iwd' | sudo tee /etc/NetworkManager/conf.d/wifi-backend.conf >/dev/null
+
+# wpa_supplicant deja de tener sentido como backend
+sudo systemctl mask wpa_supplicant
+sudo systemctl stop wpa_supplicant
+sudo systemctl restart NetworkManager
+
+echo ""
+echo "✓ iwd activado. NetworkManager configurado para usar iwd como backend WiFi."
+echo "✓ impala instalado en ~/.local/bin/impala"
+echo ""
+echo "⚠ REINICIA el sistema para que todos los cambios surtan efecto."
+echo "   Tras el reinicio: la señal WiFi se verá en waybar y"
+echo "   el click abre impala (TUI) para gestionar redes."
+echo ""
 
 # Screenshots - grub tema (opcional)
 # gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"

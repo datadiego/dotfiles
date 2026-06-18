@@ -60,7 +60,7 @@
     "tooltip-format-ethernet": "Connected",
     "tooltip-format-disconnected": "Disconnected",
     "interval": 3,
-    "on-click": "nm-connection-editor"
+    "on-click": "alacritty -e impala"
   },
   "battery": {
     "format": "{capacity}% {icon}",
