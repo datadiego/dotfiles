@@ -5,11 +5,11 @@ read -p "Introduce tu email para Git: " git_email
 git config --global user.name "$git_name"
 git config --global user.email "$git_email"
 
-sudo dnf copr enable sdegler/hyprland -y
-sudo dnf install hyprland hyprpaper hyprlock hypridle hyprsunset -y
-
 # update
 sudo dnf update -y
+
+sudo dnf copr enable sdegler/hyprland -y
+sudo dnf install hyprland hyprpaper hyprlock hypridle hyprsunset -y
 
 # utilidades
 sudo dnf install pipx unzip xclip yq jq fzf stow btop -y
@@ -27,10 +27,9 @@ sudo dnf install curl wget httpie -y
 sudo dnf install sqlite3 sqlitebrowser -y
 
 # vscode
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc &&
-  echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null
-dnf check-update &&
-  sudo dnf install code -y
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null
+sudo dnf install code -y
 
 # Nerd fonts
 wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
@@ -48,15 +47,15 @@ curl -fsSL https://bun.sh/install | bash
 
 # docker
 sudo dnf remove docker \
-  docker-client \
-  docker-client-latest \
-  docker-common \
-  docker-latest \
-  docker-latest-logrotate \
-  docker-logrotate \
-  docker-selinux \
-  docker-engine-selinux \
-  docker-engine
+	docker-client \
+	docker-client-latest \
+	docker-common \
+	docker-latest \
+	docker-latest-logrotate \
+	docker-logrotate \
+	docker-selinux \
+	docker-engine-selinux \
+	docker-engine
 
 sudo dnf config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo -y
 sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
@@ -77,7 +76,7 @@ rm -rf ~/.config/nvim/.git
 # Copiar init.lua personalizado de los dotfiles
 DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
 if [ -f "$DOTFILES_DIR/nvim/.config/nvim/init.lua" ]; then
-  cp "$DOTFILES_DIR/nvim/.config/nvim/init.lua" ~/.config/nvim/init.lua
+	cp "$DOTFILES_DIR/nvim/.config/nvim/init.lua" ~/.config/nvim/init.lua
 fi
 
 #tetro-tui
@@ -123,12 +122,11 @@ mv ~/.local/bin/elephant-linux-amd64 ~/.local/bin/elephant 2>/dev/null
 
 # Providers de elephant
 for PROVIDER in desktopapplications runner websearch calc clipboard files menus symbols unicode providerlist; do
-  URL=$(curl -fsSL https://api.github.com/repos/abenz1267/elephant/releases/latest | grep "browser_download_url.*linux-amd64.tar.gz" | grep "${PROVIDER}-linux" | cut -d'"' -f4 | head -1)
-  curl -fsSL "$URL" | tar xz -C ~/.local/bin/
-  mv ~/.local/bin/${PROVIDER}-linux-amd64 ~/.local/bin/elephant-${PROVIDER} 2>/dev/null
+	URL=$(curl -fsSL https://api.github.com/repos/abenz1267/elephant/releases/latest | grep "browser_download_url.*linux-amd64.tar.gz" | grep "${PROVIDER}-linux" | cut -d'"' -f4 | head -1)
+	curl -fsSL "$URL" | tar xz -C ~/.local/bin/
 done
 mkdir -p ~/.config/elephant/plugins
-mv ~/.local/bin/elephant-*.so ~/.config/elephant/plugins/ 2>/dev/null
+mv ~/.local/bin/*-linux-amd64.so ~/.config/elephant/plugins/ 2>/dev/null
 chmod +x ~/.local/bin/elephant ~/.config/elephant/plugins/*.so 2>/dev/null
 
 # Activar servicio de elephant
@@ -139,28 +137,32 @@ systemctl --user daemon-reload 2>/dev/null
 systemctl --user enable elephant.service 2>/dev/null
 systemctl --user start elephant.service 2>/dev/null
 
-# Fix: vars de display para servicios que arrancan antes que Hyprland
-# elephant (y otros servicios de usuario) se inician al login, antes de que
-# Hyprland establezca WAYLAND_DISPLAY, DISPLAY, etc. en el manager de systemd.
-# Sin estas vars, systemd-run --scope hereda un entorno sin display y las
-# apps GUI fallan silenciosamente.
+# Fix: vars de entorno para servicios de usuario
+# elephant, waybar, y otros servicios systemd --user no heredan
+# el PATH del shell ni las vars de display. Se configuran aquí
+# para que funcionen al arrancar antes que Hyprland.
 mkdir -p ~/.config/environment.d
-cat > ~/.config/environment.d/90-display.conf << 'ENVEOF'
-# Asegura vars de display para servicios de usuario (elephant, etc.)
-# que arrancan antes que Hyprland establezca el entorno gráfico.
+cat >~/.config/environment.d/90-env.conf <<'ENVEOF'
+# Asegura vars de display para servicios de usuario que arrancan
+# antes que Hyprland establezca el entorno gráfico.
 WAYLAND_DISPLAY=wayland-1
 DISPLAY=:0
 XDG_SESSION_TYPE=wayland
+
+# PATH completo para que waybar, bindings de Hyprland y lanzadores
+# encuentren binarios instalados en ~/.local/bin/ (impala, walker, lazydocker, etc.)
+PATH=${HOME}/.local/bin:${PATH}
 ENVEOF
 systemctl --user set-environment WAYLAND_DISPLAY=wayland-1
 systemctl --user set-environment DISPLAY=:0
 systemctl --user set-environment XDG_SESSION_TYPE=wayland
+systemctl --user set-environment PATH="$HOME/.local/bin:/usr/local/bin:/usr/bin:/usr/sbin"
 systemctl --user restart elephant.service
 
 # Codecs (RPM Fusion + ffmpeg completo para mkv, h264, hevc, etc)
 sudo dnf install \
-  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-  https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
+	https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+	https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 sudo dnf swap ffmpeg-free ffmpeg --allowerasing -y
 
 # Reproductor de vídeo (Wayland-native)
@@ -178,7 +180,7 @@ gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 # Fix: nautilus desde lanzadores (walker) en Hyprland
 # Usa un wrapper script con ruta absoluta + DBusActivatable=false
 mkdir -p ~/.local/bin ~/.local/share/applications
-cat > ~/.local/bin/nautilus-walker << 'WRAPPER'
+cat >~/.local/bin/nautilus-walker <<'WRAPPER'
 #!/bin/bash
 export WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-wayland-1}
 export DISPLAY=${DISPLAY:-:0}
@@ -207,7 +209,7 @@ sudo dnf install iwd -y
 
 # Impala (TUI para iwd, reemplaza nm-applet)
 curl -fsSL https://github.com/pythops/impala/releases/download/v0.7.4/impala-x86_64-unknown-linux-musl \
-  -o ~/.local/bin/impala
+	-o ~/.local/bin/impala
 chmod +x ~/.local/bin/impala
 
 # GTK theming para Wayland
@@ -220,17 +222,14 @@ sudo dnf install arc-theme papirus-icon-theme -y
 pipx install hyprshot
 
 # ===== CAMBIO A NETWORKMANAGER + IWD (AL FINAL: REQUIERE REBOOT) =====
-# Los servicios iwd y wpa_supplicant no pueden coexistir gestionando la
-# misma interfaz WiFi. Se migra NetworkManager a backend iwd.
+# Se configura NetworkManager para usar iwd como backend WiFi.
+# NetworkManager gestiona ambos servicios, NO hay que tocar wpa_supplicant.
 sudo systemctl enable --now iwd
 
 mkdir -p /etc/NetworkManager/conf.d
 echo '[device]
 wifi.backend=iwd' | sudo tee /etc/NetworkManager/conf.d/wifi-backend.conf >/dev/null
 
-# wpa_supplicant deja de tener sentido como backend
-sudo systemctl mask wpa_supplicant
-sudo systemctl stop wpa_supplicant
 sudo systemctl restart NetworkManager
 
 echo ""
