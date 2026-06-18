@@ -162,6 +162,10 @@ gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 mkdir -p ~/.local/bin ~/.local/share/applications
 cat > ~/.local/bin/nautilus-walker << 'WRAPPER'
 #!/bin/bash
+export WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-wayland-1}
+export DISPLAY=${DISPLAY:-:0}
+export XDG_SESSION_TYPE=${XDG_SESSION_TYPE:-wayland}
+export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
 exec /usr/bin/nautilus --new-window "$@"
 WRAPPER
 chmod +x ~/.local/bin/nautilus-walker
