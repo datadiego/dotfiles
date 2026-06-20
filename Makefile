@@ -3,7 +3,7 @@ SHELL := /bin/bash
 PACKAGES := alacritty bash gtk-3.0 i3 i3status nvim profile wallpaper picom polybar rofi btop starship fastfetch
 PACKAGES_I3 := alacritty bash gtk-3.0 i3 i3status nvim profile wallpaper picom polybar rofi btop starship fastfetch
 PACKAGES_GNOME := bash nvim btop starship fastfetch
-PACKAGES_HYPRLAND := alacritty bash gtk-3.0 hypr waybar walker mako profile wallpaper btop starship fastfetch
+PACKAGES_HYPRLAND := alacritty applications bash gtk-3.0 hypr waybar walker mako profile wallpaper btop starship fastfetch
 
 #PHONY hace que siempre se ejecute la accion asociada en el Makefile
 .PHONY: help fedora-basic fedora-i3 fedora-hyprland setup-hyprland stow unstow generate status clean

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=ChatGPT
+Exec=/usr/lib64/chromium-browser/chromium-browser.sh --profile-directory=Default --app-id=cadlkienfkclaiaibeoongdcgmdikeeg
+Icon=chrome-cadlkienfkclaiaibeoongdcgmdikeeg-Default
+StartupWMClass=crx_cadlkienfkclaiaibeoongdcgmdikeeg
