@@ -1,0 +1,2 @@
+preload = ${HOME}/dotfiles/wallpaper/.local/share/wallpaper.jpg
+wallpaper = , ${HOME}/dotfiles/wallpaper/.local/share/wallpaper.jpg

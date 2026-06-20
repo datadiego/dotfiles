@@ -8,15 +8,11 @@ font pango:monospace 8
 
 exec --no-startup-id dex --autostart --environment i3
 
-exec --no-startup-id picom --config ~/.config/picom/picom.conf
-
-exec --no-startup-id feh --bg-scale ~/.local/share/wallpaper.jpg
+exec --no-startup-id feh --bg-scale ~/.config/wallpaper.jpg
 
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 exec --no-startup-id nm-applet
-
-exec --no-startup-id polybar example
 
 # Use wpctl to adjust volume in PipeWire.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -39,12 +35,9 @@ bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 bindsym $mod+w kill
 
 # start dmenu (a program launcher)
-#bindsym $mod+d exec --no-startup-id dmenu_run -nb "#201430" -nf "#9DAFD1" -sb "#875FAF" -sf "#111111"
+bindsym $mod+d exec --no-startup-id dmenu_run -nb "#201430" -nf "#9DAFD1" -sb "#875FAF" -sf "#111111"
 # A more modern dmenu replacement is rofi:
-bindsym $mod+d exec "rofi -modi drun,run -show drun"
-bindsym $mod+b exec "firefox"
-bindsym $mod+Shift+b exec "firefox"
-bindsym $mod+Shift+f exec "thunar"
+# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
@@ -167,24 +160,24 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-#bar {
-#        status_command i3status
-#        font pango:JetBrainsMono Nerd Font 12
-#        colors {
-#          background #201430
-#          statusline #E6BB85
-#          separator  #AB92FC
-#
-#          focused_workspace  #875FAF #875FAF #111111
-#          active_workspace   #AB92FC #AB92FC #111111
-#          inactive_workspace #201430 #201430 #9DAFD1
-#          urgent_workspace   #BF2D2D #BF2D2D #111111
-#          binding_mode       #D99145 #D99145 #111111
-#    }
-#}
+bar {
+        status_command i3status
+        font pango:JetBrainsMono Nerd Font 12
+        colors {
+          background #201430
+          statusline #E6BB85
+          separator  #AB92FC
 
-default_border pixel 1
-default_floating_border pixel 1
+          focused_workspace  #875FAF #875FAF #111111
+          active_workspace   #AB92FC #AB92FC #111111
+          inactive_workspace #201430 #201430 #9DAFD1
+          urgent_workspace   #BF2D2D #BF2D2D #111111
+          binding_mode       #D99145 #D99145 #111111
+    }
+}
+
+default_border pixel 0
+default_floating_border pixel 0
 
 gaps inner 5
 gaps outer 0
