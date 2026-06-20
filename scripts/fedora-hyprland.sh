@@ -12,7 +12,7 @@ sudo dnf copr enable sdegler/hyprland -y
 sudo dnf install hyprland hyprpaper hyprlock hypridle hyprsunset -y
 
 # utilidades
-sudo dnf install pipx unzip xclip yq jq fzf stow btop -y
+sudo dnf install eza pipx unzip xclip yq jq fzf stow btop -y
 
 # starship
 curl -sS https://starship.rs/install.sh | sh -s -- -y
@@ -47,15 +47,15 @@ curl -fsSL https://bun.sh/install | bash
 
 # docker
 sudo dnf remove docker \
-	docker-client \
-	docker-client-latest \
-	docker-common \
-	docker-latest \
-	docker-latest-logrotate \
-	docker-logrotate \
-	docker-selinux \
-	docker-engine-selinux \
-	docker-engine
+  docker-client \
+  docker-client-latest \
+  docker-common \
+  docker-latest \
+  docker-latest-logrotate \
+  docker-logrotate \
+  docker-selinux \
+  docker-engine-selinux \
+  docker-engine
 
 sudo dnf config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo -y
 sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
@@ -76,7 +76,7 @@ rm -rf ~/.config/nvim/.git
 # Copiar init.lua personalizado de los dotfiles
 DOTFILES_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
 if [ -f "$DOTFILES_DIR/nvim/.config/nvim/init.lua" ]; then
-	cp "$DOTFILES_DIR/nvim/.config/nvim/init.lua" ~/.config/nvim/init.lua
+  cp "$DOTFILES_DIR/nvim/.config/nvim/init.lua" ~/.config/nvim/init.lua
 fi
 
 #tetro-tui
@@ -122,8 +122,8 @@ mv ~/.local/bin/elephant-linux-amd64 ~/.local/bin/elephant 2>/dev/null
 
 # Providers de elephant
 for PROVIDER in desktopapplications runner websearch calc clipboard files menus symbols unicode providerlist; do
-	URL=$(curl -fsSL https://api.github.com/repos/abenz1267/elephant/releases/latest | grep "browser_download_url.*linux-amd64.tar.gz" | grep "${PROVIDER}-linux" | cut -d'"' -f4 | head -1)
-	curl -fsSL "$URL" | tar xz -C ~/.local/bin/
+  URL=$(curl -fsSL https://api.github.com/repos/abenz1267/elephant/releases/latest | grep "browser_download_url.*linux-amd64.tar.gz" | grep "${PROVIDER}-linux" | cut -d'"' -f4 | head -1)
+  curl -fsSL "$URL" | tar xz -C ~/.local/bin/
 done
 mkdir -p ~/.config/elephant/plugins
 mv ~/.local/bin/*-linux-amd64.so ~/.config/elephant/plugins/ 2>/dev/null
@@ -161,8 +161,8 @@ systemctl --user restart elephant.service
 
 # Codecs (RPM Fusion + ffmpeg completo para mkv, h264, hevc, etc)
 sudo dnf install \
-	https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-	https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
+  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+  https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 sudo dnf swap ffmpeg-free ffmpeg --allowerasing -y
 
 # Reproductor de vídeo (Wayland-native)
@@ -209,7 +209,7 @@ sudo dnf install iwd -y
 
 # Impala (TUI para iwd, reemplaza nm-applet)
 curl -fsSL https://github.com/pythops/impala/releases/download/v0.7.4/impala-x86_64-unknown-linux-musl \
-	-o ~/.local/bin/impala
+  -o ~/.local/bin/impala
 chmod +x ~/.local/bin/impala
 
 # GTK theming para Wayland

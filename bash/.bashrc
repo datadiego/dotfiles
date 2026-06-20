@@ -32,7 +32,11 @@ alias cd="z"
 alias n="nvim"
 alias c="code"
 alias nano="micro"
-
+alias ls="eza -la"
+open() {
+  nohup xdg-open "$1" >/dev/null 2>&1 &
+  disown
+}
 # opencode
 export PATH=/home/datadiego/.opencode/bin:$PATH
 eval "$(starship init bash)"
