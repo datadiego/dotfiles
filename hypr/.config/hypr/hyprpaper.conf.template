@@ -1,2 +1,10 @@
+ipc = on
+splash = false
+
 preload = ${HOME}/dotfiles/wallpaper/.local/share/wallpaper.jpg
-wallpaper = , ${HOME}/dotfiles/wallpaper/.local/share/wallpaper.jpg
+
+wallpaper {
+    monitor = 
+    path = ${HOME}/dotfiles/wallpaper/.local/share/wallpaper.jpg
+    fit_mode = cover
+}

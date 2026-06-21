@@ -40,3 +40,5 @@ open() {
 # opencode
 export PATH=/home/datadiego/.opencode/bin:$PATH
 eval "$(starship init bash)"
+export NGINX_PATH=/usr/share/nginx/html/
+export NGINX_PATH=/usr/share/nginx/html
