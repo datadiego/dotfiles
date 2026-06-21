@@ -1,15 +1,15 @@
 return {
-  -- Tema Drácula
-  { "Mofiqul/dracula.nvim", lazy = false },
+  -- Tema Gruvbox
+  { "ellisonleao/gruvbox.nvim", lazy = false },
 
   {
     "LazyVim/LazyVim",
-    opts = { colorscheme = "dracula" },
+    opts = { colorscheme = "gruvbox" },
   },
 
   {
     "nvim-lualine/lualine.nvim",
-    opts = { options = { theme = "dracula-nvim" } },
+    opts = { options = { theme = "gruvbox" } },
   },
 
   {

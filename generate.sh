@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source profile/.profile
-source themes/dracula.sh
+source themes/gruvbox.sh
 
 envsubst <alacritty/.config/alacritty/alacritty.toml.template \
   >alacritty/.config/alacritty/alacritty.toml

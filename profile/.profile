@@ -1,2 +1,2 @@
 export TERMINAL="alacritty"
-export FONT_SIZE=12
+export FONT_SIZE=11
