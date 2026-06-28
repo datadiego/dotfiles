@@ -57,12 +57,17 @@ stow-i3: ## Stow de paquetes para i3
 	done
 
 stow-hyprland: ## Stow de paquetes para Hyprland
+	@rm ~/.bashrc
+	@rm -rf ~/.config/nvim
 	@for pkg in $(PACKAGES_HYPRLAND); do \
 		echo "Stowing $$pkg..."; \
 		stow -R "$$pkg"; \
 	done
 
 stow-dms: ## Stow de paquetes para DankMaterialShell
+	@rm ~/.bashrc
+	@rm -rf ~/.config/nvim
+	@rm -rf ~/.config/DankMaterialShell/
 	@for pkg in $(PACKAGES_DMS); do \
 		echo "Stowing $$pkg..."; \
 		stow -R "$$pkg"; \
