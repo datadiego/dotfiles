@@ -9,7 +9,7 @@ git config --global user.email "$git_email"
 sudo dnf update -y
 
 # utilidades
-sudo dnf install pipx unzip xclip yq jq fzf stow -y
+sudo dnf install pipx unzip xclip yq jq fzf stow eza -y
 
 # starship
 
@@ -63,6 +63,10 @@ sudo usermod -aG docker $USER
 
 # lazydocker
 curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
+# lazygit
+sudo dnf copr enable dejan/lazygit -y
+sudo dnf install lazygit -y
 
 #neovim
 sudo dnf install nvim -y
