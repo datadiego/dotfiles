@@ -27,7 +27,6 @@ unset rc
 export TERMINAL="alacritty"
 
 eval "$(fzf --bash)"
-eval "$(zoxide init bash)"
 alias cd="z"
 alias n="nvim"
 alias c="code"
@@ -40,4 +39,7 @@ open() {
 }
 # opencode
 export PATH=/home/datadiego/.opencode/bin:$PATH
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 eval "$(starship init bash)"
+eval "$(zoxide init bash)"

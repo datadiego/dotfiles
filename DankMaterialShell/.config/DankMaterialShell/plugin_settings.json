@@ -1,0 +1,15 @@
+{
+  "dockerManager": {
+    "enabled": true
+  },
+  "sathiAi": {
+    "enabled": true,
+    "persistChatHistory": true,
+    "chatHistory": "[{\"role\":\"user\",\"content\":\"como veo los procesos en linux\"},{\"role\":\"model\",\"content\":\"Usa `ps aux` para ver una lista de todos los procesos, o `top` para una vista dinámica en tiempo real.\"}]",
+    "maxMessageHistory": 12,
+    "geminiApiKey": "",
+    "aiModel": "gemini-2.5-flash",
+    "windowWidth": 751.8125,
+    "windowHeight": 762.57421875
+  }
+}

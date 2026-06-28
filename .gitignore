@@ -2,3 +2,6 @@
 *.zip.*
 hypr/.config/hypr/hyprpaper.conf
 
+# Config con API keys - usar plugin_settings.json.example como template
+DankMaterialShell/.config/DankMaterialShell/plugin_settings.json
+

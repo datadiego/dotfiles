@@ -2,8 +2,18 @@
   "currentThemeName": "custom",
   "currentThemeCategory": "registry",
   "customThemeFile": "/home/datadiego/.config/DankMaterialShell/themes/gruvboxMaterial/theme.json",
-  "registryThemeVariants": {},
-  "matugenScheme": "scheme-tonal-spot",
+  "registryThemeVariants": {
+    "flexoki": "green",
+    "everforest": "hard",
+    "modus": {
+      "dark": {
+        "flavor": "vivendi",
+        "accent": "red"
+      }
+    },
+    "gruvboxMaterial": "hard"
+  },
+  "matugenScheme": "scheme-fruit-salad",
   "runUserMatugenTemplates": true,
   "matugenTargetMonitor": "",
   "popupTransparency": 1,
@@ -438,9 +448,16 @@
         "focusedWindow"
       ],
       "centerWidgets": [
-        "music",
         "clock",
-        "weather"
+        "weather",
+        {
+          "id": "dockerManager",
+          "enabled": true
+        },
+        {
+          "id": "sathiAi",
+          "enabled": true
+        }
       ],
       "rightWidgets": [
         "systemTray",
