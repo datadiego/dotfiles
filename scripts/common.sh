@@ -1,10 +1,3 @@
-# Configurar git
-read -p "Introduce tu nombre para Git: " git_name
-read -p "Introduce tu email para Git: " git_email
-
-git config --global user.name "$git_name"
-git config --global user.email "$git_email"
-
 # update
 sudo dnf update -y
 
@@ -12,7 +5,6 @@ sudo dnf update -y
 sudo dnf install pipx unzip xclip yq jq fzf stow eza -y
 
 # starship
-
 curl -sS https://starship.rs/install.sh | sh
 
 # zoxide
@@ -44,6 +36,9 @@ sudo dnf install gh --repo gh-cli -y
 sudo dnf install npm nodejs -y
 curl -fsSL https://bun.sh/install | bash
 
+# go
+sudo dnf install -y golang
+
 # docker
 sudo dnf remove docker \
   docker-client \
@@ -71,20 +66,11 @@ sudo dnf install lazygit -y
 #neovim
 sudo dnf install nvim -y
 
-#lazyvim
-git clone https://github.com/LazyVim/starter ~/.config/nvim
-rm -rf ~/.config/nvim/.git
-
-wget https://github.com/Strophox/tetro-tui/releases/download/v3.1.0/tetro-tui_v3.1_x86_64-unknown-linux-gnu.zip
-
 #tetro-tui
 URL="https://github.com/Strophox/tetro-tui/releases/download/v3.1.0/tetro-tui_v3.1_x86_64-unknown-linux-gnu.zip"
 TMP_DIR="$(mktemp -d)"
-
 wget -q "$URL" -O "$TMP_DIR/tetro.zip"
-
 unzip -q "$TMP_DIR/tetro.zip" -d "$TMP_DIR"
-
 chmod +x "$TMP_DIR/tetro-tui"
 sudo mv "$TMP_DIR/tetro-tui" /usr/local/bin/tetro-tui
 
@@ -95,3 +81,9 @@ pipx install csvkit
 
 # opencode
 curl -fsSL https://opencode.ai/install | bash
+
+# Codecs (RPM Fusion + ffmpeg completo para mkv, h264, hevc, etc)
+sudo dnf install \
+  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+  https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
+sudo dnf swap ffmpeg-free ffmpeg --allowerasing -y
