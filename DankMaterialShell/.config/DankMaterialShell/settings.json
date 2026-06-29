@@ -218,7 +218,7 @@
       "cursorHideTimeout": 0
     }
   },
-  "launcherLogoMode": "apps",
+  "launcherLogoMode": "os",
   "launcherLogoCustomPath": "",
   "launcherLogoColorOverride": "",
   "launcherLogoColorInvertOnMode": false,
@@ -310,8 +310,8 @@
   "dockBorderOpacity": 1,
   "dockBorderThickness": 1,
   "dockIsolateDisplays": false,
-  "dockLauncherEnabled": false,
-  "dockLauncherLogoMode": "apps",
+  "dockLauncherEnabled": true,
+  "dockLauncherLogoMode": "os",
   "dockLauncherLogoCustomPath": "",
   "dockLauncherLogoColorOverride": "",
   "dockLauncherLogoSizeOffset": 0,
@@ -411,7 +411,11 @@
       "leftWidgets": [
         "launcherButton",
         "workspaceSwitcher",
-        "focusedWindow"
+        "focusedWindow",
+        {
+          "id": "systemUpdate",
+          "enabled": true
+        }
       ],
       "centerWidgets": [
         {
@@ -458,7 +462,7 @@
         }
       ],
       "spacing": 4,
-      "innerPadding": 4,
+      "innerPadding": 9,
       "bottomGap": 0,
       "transparency": 1,
       "widgetTransparency": 1,
@@ -467,7 +471,7 @@
       "maximizeWidgetIcons": false,
       "maximizeWidgetText": false,
       "removeWidgetPadding": false,
-      "widgetPadding": 8,
+      "widgetPadding": 19,
       "gothCornersEnabled": false,
       "gothCornerRadiusOverride": false,
       "gothCornerRadiusValue": 12,
