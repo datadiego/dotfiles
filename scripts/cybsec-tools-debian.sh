@@ -2,7 +2,7 @@
 
 #go
 sudo apt-get update
-sudo apt-get install golang-go chromium
+sudo apt-get install -y golang-go chromium
 
 #mapcidr
 go install github.com/projectdiscovery/mapcidr/cmd/mapcidr@latest

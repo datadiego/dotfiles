@@ -41,7 +41,7 @@ sudo dnf install -y tor torsocks proxychains
 
 #go
 sudo dnf upgrade -y
-sudo dnf install golang-go chromium
+sudo dnf install golang-go chromium -y
 
 #mapcidr
 go install github.com/projectdiscovery/mapcidr/cmd/mapcidr@latest

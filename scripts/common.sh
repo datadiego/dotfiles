@@ -2,10 +2,10 @@
 sudo dnf update -y
 
 # utilidades
-sudo dnf install pipx unzip xclip yq jq fzf stow eza -y
+sudo dnf install pipx unzip xclip yq jq fzf stow eza tldr -y
 
 # starship
-curl -sS https://starship.rs/install.sh | sh
+curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
 # zoxide
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
@@ -28,7 +28,7 @@ unzip -o JetBrainsMono.zip -d ~/.local/share/fonts
 fc-cache -f -v
 
 # gh cli
-sudo dnf install dnf5-plugins
+sudo dnf install dnf5-plugins -y
 sudo dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo
 sudo dnf install gh --repo gh-cli -y
 
