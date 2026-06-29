@@ -75,6 +75,7 @@ stow-dms:
 	@rm -rf ~/.config/nvim
 	@rm -rf ~/.config/DankMaterialShell/
 	@rm -rf ~/.config/hypr/
+	@rm -rf ~/.config/alacritty
 	@for pkg in $(PACKAGES_DMS); do \
 		echo "Stowing $$pkg..."; \
 		stow -R "$$pkg"; \
