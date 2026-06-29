@@ -4,13 +4,14 @@
 sudo apt-get update
 sudo apt-get install -y golang-go chromium
 
+# Configurar GOBIN para evitar $HOME/go
+sudo mkdir -p /opt/wordlists
+
 #mapcidr
-go install github.com/projectdiscovery/mapcidr/cmd/mapcidr@latest
-sudo ln -s $HOME/go/bin/mapcidr /usr/bin/mapcidr
+sudo GOBIN=/usr/local/bin go install github.com/projectdiscovery/mapcidr/cmd/mapcidr@latest
 
 #dnsx
-go install github.com/projectdiscovery/dnsx/cmd/dnsx@latest
-sudo ln -s $HOME/go/bin/dnsx /usr/bin/dnsx
+sudo GOBIN=/usr/local/bin go install github.com/projectdiscovery/dnsx/cmd/dnsx@latest
 
 #MurMurHash
 git clone https://github.com/Viralmaniar/MurMurHash.git /tmp/murmurhash
@@ -28,9 +29,8 @@ rm -fr /tmp/massdns
 cd $HOME
 
 #shuffledns
-go install github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest
-sudo ln -s $HOME/go/bin/shuffledns /usr/bin/shuffledns
-wget https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/subdomains-top1million-5000.txt -O $HOME/recopilacion/lists/domains.txt
+sudo GOBIN=/usr/local/bin go install github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest
+wget https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/subdomains-top1million-5000.txt -O /opt/wordlists/domains.txt
 
 #dnsvalidator
 git clone https://github.com/vortexau/dnsvalidator.git /tmp/dnsvalidator 
@@ -49,16 +49,13 @@ sudo sed -i '1s/^/#!\/usr\/bin\/env python\n/' /usr/bin/analyticsrelationships
 rm -fr /tmp/analytics
 
 #cero
-go install github.com/glebarez/cero@latest
-sudo ln -s $HOME/go/bin/cero /usr/bin/cero
+sudo GOBIN=/usr/local/bin go install github.com/glebarez/cero@latest
 
 #katana
-go install github.com/projectdiscovery/katana/cmd/katana@latest
-sudo ln -s $HOME/go/bin/katana /usr/bin/katana
+sudo GOBIN=/usr/local/bin go install github.com/projectdiscovery/katana/cmd/katana@latest
 
 #unfurl
-go install github.com/tomnomnom/unfurl@latest
-sudo ln -s $HOME/go/bin/unfurl /usr/bin/unfurl
+sudo GOBIN=/usr/local/bin go install github.com/tomnomnom/unfurl@latest
 
 #ctfr
 git clone https://github.com/UnaPibaGeek/ctfr.git /tmp/ctfr
@@ -68,20 +65,14 @@ sudo chmod +x /usr/bin/ctfr
 rm -fr /tmp/ctfr
 
 #gau
-go install github.com/lc/gau/v2/cmd/gau@latest
-sudo ln -s $HOME/go/bin/gau /usr/bin/gau
+sudo GOBIN=/usr/local/bin go install github.com/lc/gau/v2/cmd/gau@latest
 
 #amass
-go install -v github.com/owasp-amass/amass/v4/...@master
-sudo rm -f /usr/bin/amass
-sudo ln -s $HOME/go/bin/amass /usr/bin/amass
+sudo GOBIN=/usr/local/bin go install -v github.com/owasp-amass/amass/v4/...@master
 
 #httpx
-go install github.com/projectdiscovery/httpx/cmd/httpx@latest
-sudo rm -fr /usr/bin/httpx
-sudo ln -s $HOME/go/bin/httpx /usr/bin/httpx
+sudo GOBIN=/usr/local/bin go install github.com/projectdiscovery/httpx/cmd/httpx@latest
 
 #gowitness
-go install github.com/sensepost/gowitness@latest
-sudo ln -s $HOME/go/bin/gowitness /usr/bin/gowitness
+sudo GOBIN=/usr/local/bin go install github.com/sensepost/gowitness@latest
 
