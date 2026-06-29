@@ -24,18 +24,18 @@ fedora-dms: git-config install-fedora-common install-fedora-dms stow-dms clean #
 install-fedora-i3:
 	@bash scripts/fedora-i3.sh
 
-install-fedora-hyprland:
-	@bash scripts/fedora-hyprland.sh
-
 install-debian-i3:
 	@bash scripts/debian-i3.sh
 	@rm -f ~/.profile
+
+install-fedora-hyprland:
+	@bash scripts/fedora-hyprland.sh
 
 install-fedora-dms:
 	@bash scripts/fedora-dms.sh
 
 install-fedora-common:
-	@bash scripts/common.sh
+	@bash scripts/fedora-common.sh
 
 fedora-hacking: ## Herramientas de hacking y ciberseguridad para fedora
 	@bash scripts/cybsec-tools-fedora.sh
