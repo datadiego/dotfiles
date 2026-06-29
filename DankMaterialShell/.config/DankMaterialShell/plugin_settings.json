@@ -1,6 +1,7 @@
 {
   "dockerManager": {
-    "enabled": true
+    "enabled": true,
+    "groupByCompose": false
   },
   "sathiAi": {
     "enabled": true,
