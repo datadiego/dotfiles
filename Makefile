@@ -4,10 +4,10 @@ PACKAGES := alacritty bash gtk-3.0 i3 i3status nvim profile wallpaper picom poly
 PACKAGES_I3 := alacritty bash gtk-3.0 i3 i3status nvim profile wallpaper picom polybar rofi btop starship fastfetch
 PACKAGES_GNOME := bash nvim btop starship fastfetch
 PACKAGES_HYPRLAND := alacritty applications bash gtk-3.0 hypr waybar walker mako profile wallpaper btop starship fastfetch
-PACKAGES_DMS := bash dms-hyprland DankMaterialShell nvim fastfetch
+PACKAGES_DMS := bash dms-hyprland DankMaterialShell nvim fastfetch dms-alacritty wallpapers
 
 #PHONY hace que siempre se ejecute la accion asociada en el Makefile
-.PHONY: help fedora-basic fedora-i3 fedora-hyprland setup-hyprland setup-gnome setup-i3 setup-dms stow unstow generate status clean
+.PHONY: help fedora-hyprland fedora-gnome fedora-i3 fedora-dms install-fedora-i3 install-fedora-hyprland install-debian-i3 install-fedora-dms install-fedora-common fedora-hacking debian-hacking git-config stow-gnome stow-i3 stow-hyprland stow-dms unstow generate clean
 
 help:
 	@cat logo
@@ -99,5 +99,5 @@ generate:  ## Genera configs desde templates
 clean:  ## Limpia archivos generados
 	@rm -f alacritty/.config/alacritty/alacritty.toml
 	@rm -f i3/.config/i3/config
-	@rm *.zip
+	@rm -f *.zip
 	@echo "Archivos generados eliminados"
