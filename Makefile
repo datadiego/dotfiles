@@ -29,7 +29,7 @@ install-fedora-hyprland:
 
 install-debian-i3:
 	@bash scripts/debian-i3.sh
-	@rm ~/.profile
+	@rm -f ~/.profile
 
 install-fedora-dms:
 	@bash scripts/fedora-dms.sh
@@ -47,7 +47,7 @@ git-config:
 	@bash scripts/git-config.sh
 
 stow-gnome:
-	@rm ~/.bashrc
+	@rm -f ~/.bashrc
 	@rm -rf ~/.config/nvim
 	@for pkg in $(PACKAGES_GNOME); do \
 		echo "Stowing $$pkg..."; \
@@ -55,7 +55,7 @@ stow-gnome:
 	done
 
 stow-i3:
-	@rm ~/.bashrc
+	@rm -f ~/.bashrc
 	@rm -rf ~/.config/nvim
 	@for pkg in $(PACKAGES_I3); do \
 		echo "Stowing $$pkg..."; \
@@ -63,7 +63,7 @@ stow-i3:
 	done
 
 stow-hyprland:
-	@rm ~/.bashrc
+	@rm -f ~/.bashrc
 	@rm -rf ~/.config/nvim
 	@for pkg in $(PACKAGES_HYPRLAND); do \
 		echo "Stowing $$pkg..."; \
@@ -71,9 +71,10 @@ stow-hyprland:
 	done
 
 stow-dms:
-	@rm ~/.bashrc
+	@rm -f ~/.bashrc
 	@rm -rf ~/.config/nvim
 	@rm -rf ~/.config/DankMaterialShell/
+	@rm -rf ~/.config/hypr/
 	@for pkg in $(PACKAGES_DMS); do \
 		echo "Stowing $$pkg..."; \
 		stow -R "$$pkg"; \
