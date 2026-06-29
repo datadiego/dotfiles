@@ -39,6 +39,9 @@ curl -fsSL https://bun.sh/install | bash
 # go
 sudo dnf install -y golang
 
+# uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
 # docker
 sudo dnf remove docker \
   docker-client \
