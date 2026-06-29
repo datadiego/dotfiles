@@ -9,38 +9,40 @@ PACKAGES_DMS := bash dms-hyprland DankMaterialShell nvim fastfetch
 #PHONY hace que siempre se ejecute la accion asociada en el Makefile
 .PHONY: help fedora-basic fedora-i3 fedora-hyprland setup-hyprland setup-gnome setup-i3 setup-dms stow unstow generate status clean
 
-help:  ## Muestra esta ayuda
-	@echo "Dotfiles"
-	@echo "Primero utiliza una de las opciones de instalar las dependencias necesarias"
-	@echo "Luego usa la opción de stow correspondiente"
-	@echo "=================="
+help:
+	@cat logo
+	@echo "Dotfiles para entornos de desarrollo"
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
-setup-hyprland: git-config fedora-common fedora-hyprland generate stow-hyprland  ## Configuración básica fedora + hyprland
+fedora-hyprland: git-config install-fedora-common install-fedora-hyprland generate stow-hyprland clean  ## Configuración básica fedora + hyprland
 
-setup-gnome: git-config fedora-common stow-gnome ## Configuración básica fedora + gnome
+fedora-gnome: git-config install-fedora-common stow-gnome clean ## Configuración básica fedora + gnome
 
-setup-fedora-i3: git-config fedora-common fedora-i3 stow-i3 ## Configuración básica fedora + i3
+fedora-i3: git-config install-fedora-common install-fedora-i3 stow-i3 clean ## Configuración básica fedora + i3
 
-setup-dms: git-config fedora-common fedora-dms stow-dms ## Configuración básica fedora + dank material shell
+fedora-dms: git-config install-fedora-common install-fedora-dms stow-dms clean ## Configuración básica fedora + dank material shell
 
-fedora-i3:  ## Instala dependencias para Fedora i3
+install-fedora-i3:
 	@bash scripts/fedora-i3.sh
 
-fedora-hyprland:  ## Instala dependencias para Fedora Hyprland
+install-fedora-hyprland:
 	@bash scripts/fedora-hyprland.sh
 
-debian-i3:  ## Instala dependencias para Debian i3
+install-debian-i3:
 	@bash scripts/debian-i3.sh
 	@rm ~/.profile
 
-git-config: ## Instala herramientas comunes en fedora
-	@bash scripts/git-config.sh
+install-fedora-dms:
+	@bash scripts/fedora-dms.sh
 
-fedora-common: ## Instala herramientas comunes en fedora
+install-fedora-common:
 	@bash scripts/common.sh
 
-stow-gnome: ## Stow de paquetes para GNOME
+git-config:
+	@bash scripts/git-config.sh
+
+
+stow-gnome:
 	@rm ~/.bashrc
 	@rm -rf ~/.config/nvim
 	@for pkg in $(PACKAGES_GNOME); do \
@@ -48,7 +50,7 @@ stow-gnome: ## Stow de paquetes para GNOME
 		stow -S "$$pkg"; \
 	done
 
-stow-i3: ## Stow de paquetes para i3
+stow-i3:
 	@rm ~/.bashrc
 	@rm -rf ~/.config/nvim
 	@for pkg in $(PACKAGES_I3); do \
@@ -56,7 +58,7 @@ stow-i3: ## Stow de paquetes para i3
 		stow -S "$$pkg"; \
 	done
 
-stow-hyprland: ## Stow de paquetes para Hyprland
+stow-hyprland:
 	@rm ~/.bashrc
 	@rm -rf ~/.config/nvim
 	@for pkg in $(PACKAGES_HYPRLAND); do \
@@ -64,7 +66,7 @@ stow-hyprland: ## Stow de paquetes para Hyprland
 		stow -R "$$pkg"; \
 	done
 
-stow-dms: ## Stow de paquetes para DankMaterialShell
+stow-dms:
 	@rm ~/.bashrc
 	@rm -rf ~/.config/nvim
 	@rm -rf ~/.config/DankMaterialShell/
@@ -73,7 +75,7 @@ stow-dms: ## Stow de paquetes para DankMaterialShell
 		stow -R "$$pkg"; \
 	done
 
-stow-%:  ## Stow un paquete específico (ej: make stow-alacritty)
+stow-%:
 	@echo "Stowing $*..."
 	@stow -v "$*"
 
@@ -93,4 +95,5 @@ generate:  ## Genera configs desde templates
 clean:  ## Limpia archivos generados
 	@rm -f alacritty/.config/alacritty/alacritty.toml
 	@rm -f i3/.config/i3/config
+	@rm *.zip
 	@echo "Archivos generados eliminados"

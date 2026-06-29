@@ -6,16 +6,24 @@ Esta es mi colección personal de dotfiles, gestionada con `stow`.
 
 Necesitarás `make` para poder ejecutar los diferentes scripts de dependencias y la configuración de los dotfiles.
 
-Usa `make help` para ver las diferentes opciones a instalar.
+Usa `make` para ver las diferentes opciones y para instalar las dependencias y mover los dotfiles necesarios.
 
-Comienza por elegir un script para instalar tus dependencias, esto dependerá de tu distribución y el entorno de escritorio que prefieras.
+```bash
+dotfiles master  ? ❯ make
+     __     __  ____ __
+ ___/ /__  / /_/ _(_) /__ ___
+/ _  / _ \/ __/ _/ / / -_|_-<
+\_,_/\___/\__/_//_/_/\__/___/
 
-- `fedora-basic`: Herramientas básicas y utilidades varias, pensada para ejecutarse en **Fedora GNOME**
-- `fedora-i3`: Herramientas básicas y configuraciones para ejecutarse en el spin de **Fedora i3**.
-
-Una vez tengas las dependencias necesarias, usa `stow` para crear tus dotfiles:
-
-- `generate`: Genera dotfiles desde las plantillas mediante `envsubst`.
-- `stow`: Instala los dotfiles mediante `stow`.
+Dotfiles para entornos de desarrollo
+  fedora-hyprland Configuración básica fedora + hyprland
+  fedora-gnome    Configuración básica fedora + gnome
+  fedora-i3       Configuración básica fedora + i3
+  fedora-dms      Configuración básica fedora + dank material shell
+  unstow          Unstow todos los paquetes
+  generate        Genera configs desde templates
+  clean           Limpia archivos generados
+dotfiles master  ? ❯ make fedora-gnome
+```
 
 
