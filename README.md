@@ -71,3 +71,5 @@ Todos los entornos incluyen:
 - `nodejs + pnpm + bun`: Desarrolla proyectos de javascript/typescript
 - `golang`: Desarrolla e instala herramientas con Go
 - `uv + python`: Desarrolla proyectos de python desde `uv`
+
+Adicionalmente, puedes hacer `make fedora-hacking` para instalar un pack de herramientas básicas para hacking y ciberseguridad.
