@@ -1,5 +1,8 @@
 #!/bin/bash
 
+sudo dnf install @development-tools ruby-devel snapd gcc gcc-c++ make libcurl-devel -y
+sudo systemctl start snapd.service
+
 # dnf
 # Reconocimiento
 sudo dnf install -y nmap dnsenum whatweb
@@ -12,17 +15,45 @@ sudo dnf install -y wireshark tcpdump ettercap ettercap python3-scapy netcat soc
 # Web
 sudo dnf install -y nikto gobuster ffuf wfuzz 
 
-#dirsearch burp sqlmap wpscan xsstrike commix nosqlmap arjun ghauri
+sudo dnf install -y git ca-certificates python3 python3-pip
+python3 -m venv ~/.venvs/dirsearch
+. ~/.venvs/dirsearch/bin/activate
+python -m pip install --upgrade pip
+python -m pip install "git+https://github.com/maurosoria/dirsearch.git"
+dirsearch --version
+
+sudo git clone https://github.com/sqlmapproject/sqlmap.git /opt/sqlmap-dev
+sudo chmod +x /opt/sqlmap-dev/sqlmap.py
+sudo ln -sf /opt/sqlmap-dev/sqlmap.py /usr/local/bin/sqlmap
+
+gem install wpscan
+
+sudo git clone https://github.com/s0md3v/XSStrike.git /opt/xsstrike
+sudo chmod +x /opt/xsstrike/xsstrike.py
+sudo ln -sf /opt/xsstrike/xsstrike.py /usr/local/bin/xsstrike
+#burp commix nosqlmap arjun ghauri
 
 # Explotacion
 sudo dnf install -y python3-impacket
 
-#metasploit searchsploit beef crackmapexec netexec ligolo-ng chisel sshuttle
+curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
+  chmod 755 msfinstall && \
+  ./msfinstall
+sudo snap install -y searchsploit
+
+#beef crackmapexec netexec ligolo-ng chisel sshuttle
 
 # Cracking
 sudo dnf install -y john hashcat hydra medusa hashid
 
-# cewl crunch cupp
+#crunch
+git clone https://github.com/crunchsec/crunch.git /tmp/crunch
+cd /tmp/crunch && make
+sudo mv /tmp/crunch /opt/crunch
+sudo chmod +x /opt/crunch/crunch
+sudo ln -sf /opt/crunch/crunch /usr/local/bin/crunch
+
+# cewl cupp
 
 # Redes inalambricas
 sudo dnf install -y aircrack-ng reaver
