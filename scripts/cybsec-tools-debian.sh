@@ -6,6 +6,7 @@
 
 sudo apt-get update
 sudo apt-get install -y golang-go chromium
+curl -LsSf https://astral.sh/uv/install.sh | sh
 sudo mkdir -p /opt/wordlists
 
 # ============================================
@@ -71,6 +72,11 @@ sudo GOBIN=/usr/local/bin go install github.com/lc/gau/v2/cmd/gau@latest
 
 # amass
 sudo GOBIN=/usr/local/bin go install -v github.com/owasp-amass/amass/v4/...@master
+
+# dnsrecon
+sudo git clone https://github.com/darkoperator/dnsrecon.git /opt/dnsrecon
+sudo chown -R $USER:$USER /opt/dnsrecon
+uv tool install --reinstall /opt/dnsrecon
 
 # ============================================
 # SEGURIDAD WEB

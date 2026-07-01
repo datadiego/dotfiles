@@ -3,7 +3,7 @@
 # > DEPENDENCIAS
 
 sudo dnf upgrade -y
-sudo dnf install golang-go chromium @development-tools ruby-devel snapd gcc gcc-c++ make libcurl-devel git ca-certificates python3 python3-pip -y
+sudo dnf install golang-go chromium @development-tools ruby-devel snapd gcc gcc-c++ make libcurl-devel git ca-certificates python3 python3-pip lynx -y
 sudo systemctl start snapd.service
 sudo mkdir -p /opt/wordlists
 sudo dnf install -y 
@@ -11,7 +11,23 @@ sudo dnf install -y
 # > RECONOCIMIENTO
 
 sudo dnf install -y nmap dnsenum whatweb
-#theharvester recon-ng sublist3r assetfinder wappalyzer netdiscover
+#sublist3r assetfinder wappalyzer netdiscover
+
+# theHarvester
+sudo git clone https://github.com/laramies/theHarvester.git /opt/theHarvester
+sudo chown -R $USER:$USER /opt/theHarvester
+uv tool install --reinstall /opt/theHarvester
+
+# recon-ng
+sudo git clone https://github.com/lanmaster53/recon-ng.git /opt/recon-ng
+sudo chown -R $USER:$USER /opt/recon-ng
+uv --directory /opt/recon-ng venv
+uv --directory /opt/recon-ng pip install -r REQUIREMENTS
+sudo tee /usr/local/bin/recon-ng > /dev/null << 'EOF'
+#!/bin/bash
+exec uv run --directory /opt/recon-ng ./recon-ng "$@"
+EOF
+sudo chmod +x /usr/local/bin/recon-ng
 
 sudo GOBIN=/usr/local/bin go install github.com/projectdiscovery/mapcidr/cmd/mapcidr@latest
 
@@ -57,6 +73,11 @@ sudo GOBIN=/usr/local/bin go install github.com/lc/gau/v2/cmd/gau@latest
 sudo GOBIN=/usr/local/bin go install github.com/tomnomnom/unfurl@latest
 sudo GOBIN=/usr/local/bin go install -v github.com/owasp-amass/amass/v4/...@master
 sudo GOBIN=/usr/local/bin go install github.com/glebarez/cero@latest
+
+# dnsrecon
+sudo git clone https://github.com/darkoperator/dnsrecon.git /opt/dnsrecon
+sudo chown -R $USER:$USER /opt/dnsrecon
+uv tool install --reinstall /opt/dnsrecon
 
 # CAPTURA DE TRÁFICO
 
