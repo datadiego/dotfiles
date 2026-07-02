@@ -109,6 +109,18 @@ sudo ln -sf /opt/xsstrike/xsstrike.py /usr/local/bin/xsstrike
 sudo GOBIN=/usr/local/bin go install github.com/projectdiscovery/katana/cmd/katana@latest
 sudo GOBIN=/usr/local/bin go install github.com/projectdiscovery/httpx/cmd/httpx@latest
 sudo GOBIN=/usr/local/bin go install github.com/sensepost/gowitness@latest
+
+# EyeWitness
+sudo git clone https://github.com/RedSiege/EyeWitness.git /opt/EyeWitness
+sudo chown -R $USER:$USER /opt/EyeWitness
+uv --directory /opt/EyeWitness venv --seed
+uv --directory /opt/EyeWitness pip install -r setup/requirements.txt
+sudo tee /usr/local/bin/eyewitness > /dev/null << 'EOF'
+#!/bin/bash
+exec uv run --directory /opt/EyeWitness python Python/EyeWitness.py "$@"
+EOF
+sudo chmod +x /usr/local/bin/eyewitness
+
 sudo GOBIN=/usr/local/bin go install github.com/MyCode83/godirb@latest
 sudo GOBIN=/usr/local/bin go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 
