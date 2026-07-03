@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+cat <<EOF
+Uso: $(basename "$0") [--private|--public|--internal]
+
+Crea el repositorio actual en GitHub y GitLab y configura:
+
+  github -> remoto GitHub
+  gitlab -> remoto GitLab
+  origin -> fetch desde GitHub, push a GitHub y GitLab
+EOF
+}
+
+VISIBILITY="--private"
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --private|--public|--internal)
+            VISIBILITY="$1"
+            shift
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        *)
+            echo "Opción desconocida: $1"
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+git rev-parse --git-dir >/dev/null 2>&1 || {
+    echo "❌ No estás dentro de un repositorio Git."
+    exit 1
+}
+
+REPO=$(basename "$PWD")
+BRANCH=$(git branch --show-current)
+
+if [[ -z "$BRANCH" ]]; then
+    echo "❌ No hay ninguna rama actual."
+    exit 1
+fi
+
+echo "==> Creando repositorio en GitHub..."
+gh repo create "$REPO" "$VISIBILITY"
+
+echo "==> Creando repositorio en GitLab..."
+glab repo create "$VISIBILITY" --name "$REPO" --remoteName gitlab
+
+# Eliminar remotos si existen
+for remote in origin github; do
+    git remote remove "$remote" 2>/dev/null || true
+done
+
+# Obtener URLs HTTPS
+GITHUB_URL="$(gh repo view "$REPO" --json url -q '.url + ".git"')"
+GITLAB_URL="$(git remote get-url gitlab)"
+
+echo "==> Configurando remotos..."
+
+git remote add github "$GITHUB_URL"
+git remote add origin "$GITHUB_URL"
+
+# origin hace push a ambos
+git remote set-url --push --add origin "$GITHUB_URL"
+git remote set-url --push --add origin "$GITLAB_URL"
+
+echo "==> Push inicial..."
+git push -u origin "$BRANCH"
+
+echo
+echo "✓ Todo listo"
+echo
+git remote -v
