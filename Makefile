@@ -1,8 +1,8 @@
 SHELL := /bin/bash
 
 PACKAGES := alacritty bash gtk-3.0 i3 i3status nvim profile wallpaper picom polybar rofi btop starship fastfetch
+PACKAGES_COMMON := bash nvim btop starship fastfetch user-scripts
 PACKAGES_I3 := alacritty bash gtk-3.0 i3 i3status nvim profile wallpaper picom polybar rofi btop starship fastfetch user-scripts
-PACKAGES_GNOME := bash nvim btop starship fastfetch user-scripts
 PACKAGES_HYPRLAND := alacritty applications bash gtk-3.0 hypr waybar walker mako profile wallpaper btop starship fastfetch user-scripts
 PACKAGES_DMS := bash dms-hyprland DankMaterialShell nvim fastfetch dms-alacritty wallpapers user-scripts
 
@@ -13,13 +13,13 @@ help:
 	@cat logo
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
+fedora-common: git-config install-fedora-common stow-common clean ## Configuración básica fedora + gnome
+
 fedora-hyprland: git-config install-fedora-common install-fedora-hyprland generate stow-hyprland clean  ## Configuración básica fedora + hyprland
 
-fedora-gnome: git-config install-fedora-common stow-gnome clean ## Configuración básica fedora + gnome
-
-fedora-i3: git-config install-fedora-common install-fedora-i3 stow-i3 clean ## Configuración básica fedora + i3
-
 fedora-dms: git-config install-fedora-common install-fedora-dms stow-dms clean ## Configuración básica fedora + dank material shell
+
+fedora-i3: git-config generate install-fedora-common install-fedora-i3 stow-i3 clean ## Configuración básica fedora + i3
 
 install-fedora-i3:
 	@bash scripts/fedora-i3.sh
@@ -46,10 +46,10 @@ debian-hacking: ## Herramientas de hacking y ciberseguridad para debian
 git-config:
 	@bash scripts/git-config.sh
 
-stow-gnome:
+stow-common:
 	@rm -f ~/.bashrc
 	@rm -rf ~/.config/nvim
-	@for pkg in $(PACKAGES_GNOME); do \
+	@for pkg in $(PACKAGES_COMMON); do \
 		echo "Stowing $$pkg..."; \
 		stow -S "$$pkg"; \
 	done
