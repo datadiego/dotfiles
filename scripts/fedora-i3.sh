@@ -2,6 +2,7 @@
 sudo dnf update -y
 
 # entorno i3
+sudo dnf install i3 -y
 sudo dnf install picom -y
 sudo dnf install alacritty -y
 sudo dnf install -y arc-theme -y
