@@ -6,7 +6,7 @@ sudo dnf upgrade -y
 sudo dnf install golang-go chromium @development-tools ruby-devel snapd gcc gcc-c++ make libcurl-devel git ca-certificates python3 python3-pip lynx -y
 sudo systemctl start snapd.service
 sudo mkdir -p /opt/wordlists
-sudo dnf install -y 
+sudo dnf install -y
 
 # > RECONOCIMIENTO
 
@@ -23,14 +23,14 @@ sudo git clone https://github.com/lanmaster53/recon-ng.git /opt/recon-ng
 sudo chown -R $USER:$USER /opt/recon-ng
 uv --directory /opt/recon-ng venv
 uv --directory /opt/recon-ng pip install -r REQUIREMENTS
-sudo tee /usr/local/bin/recon-ng > /dev/null << 'EOF'
+sudo tee /usr/local/bin/recon-ng >/dev/null <<'EOF'
 #!/bin/bash
 exec uv run --directory /opt/recon-ng ./recon-ng "$@"
 EOF
 sudo chmod +x /usr/local/bin/recon-ng
 
 sudo GOBIN=/usr/local/bin go install github.com/projectdiscovery/mapcidr/cmd/mapcidr@latest
-
+sudo GOBIN=/usr/local/bin go install github.com/mmarting/resolvalid@latest
 sudo GOBIN=/usr/local/bin go install github.com/projectdiscovery/dnsx/cmd/dnsx@latest
 
 git clone https://github.com/blechschmidt/massdns.git /tmp/massdns
@@ -42,7 +42,7 @@ cd $HOME
 sudo GOBIN=/usr/local/bin go install github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest
 wget https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/subdomains-top1million-5000.txt -O /opt/wordlists/domains.txt
 
-git clone https://github.com/vortexau/dnsvalidator.git /tmp/dnsvalidator 
+git clone https://github.com/vortexau/dnsvalidator.git /tmp/dnsvalidator
 cd /tmp/dnsvalidator
 sudo python3 /tmp/dnsvalidator/setup.py install
 pip install -r /tmp/dnsvalidator/requirements.txt
@@ -52,7 +52,7 @@ sudo rm -fr /tmp/dnsvalidator
 git clone https://github.com/Viralmaniar/MurMurHash.git /tmp/murmurhash
 pip install -r /tmp/murmurhash/requirements.txt
 sudo mv /tmp/murmurhash/MurMurHash.py /usr/bin/murmurhash
-sudo sed -i '1s/^/#!\/usr\/bin\/env python\n/' /usr/bin/murmurhash 
+sudo sed -i '1s/^/#!\/usr\/bin\/env python\n/' /usr/bin/murmurhash
 sudo chmod +x /usr/bin/murmurhash
 rm -rf /tmp/murmurhash
 
@@ -88,7 +88,7 @@ sudo dnf install -y wireshark tcpdump ettercap python3-scapy netcat socat
 #burp commix nosqlmap arjun ghauri
 
 # Escáneres y fuzzing
-sudo dnf install -y nikto gobuster ffuf wfuzz 
+sudo dnf install -y nikto gobuster ffuf wfuzz
 
 python3 -m venv ~/.venvs/dirsearch
 . ~/.venvs/dirsearch/bin/activate
@@ -128,8 +128,8 @@ sudo GOBIN=/usr/local/bin go install -v github.com/projectdiscovery/subfinder/v2
 
 sudo dnf install -y python3-impacket
 
-curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
-  chmod 755 msfinstall && \
+curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb >msfinstall &&
+  chmod 755 msfinstall &&
   ./msfinstall
 
 sudo snap install searchsploit
@@ -152,7 +152,7 @@ sudo dnf install -y aircrack-ng reaver
 
 # > INGENIERIA INVERSA
 
-sudo dnf install -y radare2 
+sudo dnf install -y radare2
 #ghidra strings ltrace strace pwndbg
 
 # > FORENSE
@@ -162,4 +162,4 @@ sudo dnf install -y foremost binwalk steghide yara
 
 # > UTILIDADES
 
-sudo dnf install -y tor torsocks proxychains 
+sudo dnf install -y tor torsocks proxychains
