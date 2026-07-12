@@ -31,6 +31,9 @@ save_to_clipboard = false
 [bell]
 duration = 0
 
+[terminal.shell]
+program = "/home/datadiego/.local/bin/alacritty-cwd"
+
 [keyboard]
 bindings = [
   { key = "C",       mods = "Control|Shift", action = "Copy"  },

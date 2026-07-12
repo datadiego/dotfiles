@@ -26,6 +26,11 @@ unset rc
 
 export TERMINAL="alacritty"
 
+_save_cwd() {
+    [[ "$PWD" != "${_cwd_last:-}" ]] && { printf '%s\n' "$PWD" > "$HOME/.cwd"; _cwd_last="$PWD"; }
+}
+PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND;}'_save_cwd'
+
 eval "$(fzf --bash)"
 alias cd="z"
 alias n="nvim"

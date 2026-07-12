@@ -4,7 +4,7 @@ PACKAGES := alacritty bash gtk-3.0 i3 i3status nvim profile wallpaper picom poly
 PACKAGES_COMMON := bash nvim btop starship fastfetch user-scripts
 PACKAGES_I3 := alacritty bash gtk-3.0 i3 i3status nvim profile wallpaper picom polybar rofi btop starship fastfetch user-scripts
 PACKAGES_HYPRLAND := alacritty applications bash gtk-3.0 hypr waybar walker mako profile wallpaper btop starship fastfetch user-scripts
-PACKAGES_DMS := bash dms-hyprland DankMaterialShell nvim fastfetch dms-alacritty wallpapers user-scripts
+PACKAGES_DMS := bash cwd dms-hyprland DankMaterialShell nvim fastfetch dms-alacritty wallpapers user-scripts
 
 #PHONY hace que siempre se ejecute la accion asociada en el Makefile
 .PHONY: help fedora-hyprland fedora-gnome fedora-i3 fedora-dms install-fedora-i3 install-fedora-hyprland install-debian-i3 install-fedora-dms install-fedora-common fedora-hacking debian-hacking git-config stow-gnome stow-i3 stow-hyprland stow-dms unstow generate clean

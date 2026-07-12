@@ -1,0 +1,16 @@
+#!/bin/bash
+focused=$(hyprctl activewindow -j 2>/dev/null)
+class=$(echo "$focused" | sed -n 's/.*"class": *"\([^"]*\)".*/\1/p')
+pid=$(echo "$focused" | sed -n 's/.*"pid": *\([0-9]*\).*/\1/p')
+
+if [ "$class" = "Alacritty" ] && [ -n "$pid" ] && [ "$pid" -ne 0 ]; then
+    for child in $(cat "/proc/$pid/task/$pid/children" 2>/dev/null); do
+        shell_cwd=$(readlink "/proc/$child/cwd" 2>/dev/null)
+        if [ -n "$shell_cwd" ] && [ -d "$shell_cwd" ]; then
+            printf '%s\n' "$shell_cwd" > "$HOME/.cwd"
+            break
+        fi
+    done
+fi
+
+exec alacritty "$@"
