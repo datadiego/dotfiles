@@ -43,7 +43,7 @@ sudo dnf install -y golang
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # java
-sudo dnf install java-latest-openjdk
+sudo dnf install java-latest-openjdk -y
 
 # docker
 sudo dnf remove docker \
