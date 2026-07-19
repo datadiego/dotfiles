@@ -7,7 +7,7 @@ PACKAGES_HYPRLAND := alacritty applications bash gtk-3.0 hypr waybar walker mako
 PACKAGES_DMS := bash cwd dms-hyprland DankMaterialShell nvim fastfetch dms-alacritty readline wallpapers user-scripts
 
 #PHONY hace que siempre se ejecute la accion asociada en el Makefile
-.PHONY: help fedora-hyprland fedora-gnome fedora-i3 fedora-dms install-fedora-i3 install-fedora-hyprland install-debian-i3 install-fedora-dms install-fedora-common fedora-hacking debian-hacking git-config stow-gnome stow-i3 stow-hyprland stow-dms unstow generate clean
+.PHONY: help fedora-hyprland fedora-gnome fedora-dms install-fedora-i3 install-fedora-hyprland install-debian-i3 install-fedora-dms install-fedora-common fedora-hacking debian-hacking git-config stow-gnome stow-i3 stow-hyprland stow-dms unstow generate clean
 
 help:
 	@cat logo
@@ -18,15 +18,6 @@ fedora-common: git-config install-fedora-common stow-common clean ## Configuraci
 fedora-hyprland: git-config install-fedora-common install-fedora-hyprland generate stow-hyprland clean  ## Configuración básica fedora + hyprland
 
 fedora-dms: git-config install-fedora-common install-fedora-dms stow-dms clean ## Configuración básica fedora + dank material shell
-
-fedora-i3: git-config generate install-fedora-common install-fedora-i3 stow-i3 clean ## Configuración básica fedora + i3
-
-install-fedora-i3:
-	@bash scripts/fedora-i3.sh
-
-install-debian-i3:
-	@bash scripts/debian-i3.sh
-	@rm -f ~/.profile
 
 install-fedora-hyprland:
 	@bash scripts/fedora-hyprland.sh
