@@ -13,7 +13,7 @@ help:
 	@cat logo
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
-fedora-common: git-config install-fedora-common stow-common clean ## Configuración básica fedora + gnome
+fedora-common: git-config install-fedora-common genrate stow-common clean ## Configuración básica fedora + gnome
 
 fedora-hyprland: git-config install-fedora-common install-fedora-hyprland generate stow-hyprland clean  ## Configuración básica fedora + hyprland
 
