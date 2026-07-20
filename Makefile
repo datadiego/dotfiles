@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 PACKAGES := alacritty bash gtk-3.0 i3 i3status nvim profile wallpaper picom polybar rofi btop starship fastfetch
-PACKAGES_COMMON := bash nvim btop starship fastfetch user-scripts
+PACKAGES_COMMON := bash alacritty nvim btop starship fastfetch user-scripts
 PACKAGES_I3 := alacritty bash gtk-3.0 i3 i3status nvim profile wallpaper picom polybar rofi btop starship fastfetch user-scripts
 PACKAGES_HYPRLAND := alacritty applications bash gtk-3.0 hypr waybar walker mako profile wallpaper btop starship fastfetch user-scripts
 PACKAGES_DMS := bash cwd dms-hyprland DankMaterialShell nvim fastfetch dms-alacritty readline wallpapers user-scripts

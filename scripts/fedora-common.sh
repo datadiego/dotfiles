@@ -4,6 +4,9 @@ sudo dnf update -y
 # utilidades
 sudo dnf install pipx unzip xclip yq jq fzf stow eza tldr fastfetch micro -y
 
+# alacritty
+sudo dnf install -y alacritty
+
 # starship
 curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
