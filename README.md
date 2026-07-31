@@ -1,33 +1,38 @@
 # dotfiles
 
-Esta es mi colección personal de dotfiles, gestionada con `stow`.
+Mi colección personal de dotfiles, gestionada con [chezmoi](https://www.chezmoi.io/).
+
+## Requisitos
+
+- `make`
+- `chezmoi` ([instalación oficial](https://www.chezmoi.io/docs/install/))
 
 ## Como usarlos
 
-Necesitarás `make` para poder ejecutar los diferentes scripts de dependencias y la configuración de los dotfiles.
+Usa `make` para ver las opciones disponibles.
 
-Usa `make` para ver las diferentes opciones y para instalar las dependencias y mover los dotfiles necesarios.
+Primer arranque:
 
 ```bash
-dotfiles on  master [!⇡]
-❯ make
-     __     __  ____ __
- ___/ /__  / /_/ _(_) /__ ___
-/ _  / _ \/ __/ _/ / / -_|_-<
-\_,_/\___/\__/_//_/_/\__/___/
+make init          # clona este repo como fuente y pregunta el perfil a usar
+make apply         # aplica el perfil guardado en la config
+```
 
-  fedora-hyprland Configuración básica fedora + hyprland
-  fedora-gnome    Configuración básica fedora + gnome
-  fedora-i3       Configuración básica fedora + i3
-  fedora-dms      Configuración básica fedora + dank material shell
-  fedora-hacking  Herramientas de hacking y ciberseguridad para fedora
-  debian-hacking  Herramientas de hacking y ciberseguridad para debian
-  unstow          Unstow todos los paquetes
-  generate        Genera configs desde templates
-  clean           Limpia archivos generados
+El perfil se elige durante `make init` (o `chezmoi init`) y se guarda en
+`~/.config/chezmoi/chezmoi.toml`. Puedes forzar un perfil concreto en cualquier
+momento:
 
-dotfiles on  master [!⇡]
-❯ make fedora-dms
+```bash
+make apply-common     # perfil básico (gnome)
+make apply-i3         # perfil i3
+make apply-hyprland   # perfil hyprland
+make apply-dms        # perfil dank material shell
+```
+
+Actualizar desde el remoto:
+
+```bash
+make update           # equivale a chezmoi update
 ```
 
 ## Entornos
@@ -35,8 +40,6 @@ dotfiles on  master [!⇡]
 ### Fedora Hyprland
 
 Entorno de hyprland + waybar + walker + impala.
-
-Funcional pero básico, tiene lo justo para personalizarlo a tu gusto.
 
 ### Fedora Dank Material Shell
 
@@ -50,26 +53,25 @@ Utilidades básicas para mejorar el uso del sistema partiendo de una instalació
 
 Entorno básico de i3, pensado para equipos menos potentes o VMs.
 
-## Paquetes
+## Instalación completa (dependencias + dotfiles)
 
-Todos los entornos incluyen:
+```bash
+make fedora-common     # fedora + gnome
+make fedora-hyprland   # fedora + hyprland
+make fedora-dms        # fedora + dank material shell
+```
 
-- `xclip`: Copia la respuesta de la terminal directamente a tu portapapeles
-- `yq`: Analiza y manipula archivos `yaml` desde CLI
-- `jq`: Analiza y manipula `JSON` desde CLI
-- `fzf`: Encuentra archivos y rutas rápidamente desde el CLI
-- `eza`: Sustituye `ls` para una salida más moderna
-- `tldr`: Referencia rápida para consultar comandos
-- `zoxide`: Moverte a carpetas sin escribir la ruta completa
-- `httpie`: Cliente http
-- `nvim + lazyvim`: Editor de código ligero
-- `gh + lazygit`: Interactua con tus repositorios en github desde CLI y TUI
-- `docker + lazydocker`: Crea y gestiona tus contenedores de docker con un TUI
-- `tetro-tui`: La mejor implementación de tetris para terminal
-- `csvkit`: Analiza y manipula `csv`
-- `opencode`: Agente de inteligencia artificial
-- `nodejs + pnpm + bun`: Desarrolla proyectos de javascript/typescript
-- `golang`: Desarrolla e instala herramientas con Go
-- `uv + python`: Desarrolla proyectos de python desde `uv`
+Estos targets instalan las dependencias (`scripts/*.sh`), aplican el perfil con
+chezmoi y limpian los archivos descargados.
 
-Adicionalmente, puedes hacer `make fedora-hacking` para instalar un pack de herramientas básicas para hacking y ciberseguridad.
+## Estructura
+
+La fuente de chezmoi usa el prefijo `dot_` para los archivos ocultos:
+
+- `dot_bashrc.tmpl` → `~/.bashrc` (template según el OS)
+- `dot_config/` → `~/.config/`
+- `dot_local/` → `~/.local/`
+- `dot_inputrc` → `~/.inputrc`
+- `dot_profile` → `~/.profile`
+- `.chezmoi.toml.tmpl` → genera la config de chezmoi (pregunta el perfil)
+- `.chezmoiignore.tmpl` → selecciona los archivos de cada perfil

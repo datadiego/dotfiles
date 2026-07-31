@@ -1,0 +1,5 @@
+{{- $choices := list "common" "i3" "hyprland" "dms" -}}
+{{- $profile := promptChoiceOnce . "profile" "Selecciona el perfil de configuración" $choices "hyprland" -}}
+
+[data]
+    profile = {{ $profile | quote }}

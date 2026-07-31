@@ -47,18 +47,7 @@ systemctl --user start elephant.service 2>/dev/null
 # elephant, waybar, y otros servicios systemd --user no heredan
 # el PATH del shell ni las vars de display. Se configuran aquí
 # para que funcionen al arrancar antes que Hyprland.
-mkdir -p ~/.config/environment.d
-cat >~/.config/environment.d/90-env.conf <<'ENVEOF'
-# Asegura vars de display para servicios de usuario que arrancan
-# antes que Hyprland establezca el entorno gráfico.
-WAYLAND_DISPLAY=wayland-1
-DISPLAY=:0
-XDG_SESSION_TYPE=wayland
-
-# PATH completo para que waybar, bindings de Hyprland y lanzadores
-# encuentren binarios instalados en ~/.local/bin/ (impala, walker, lazydocker, etc.)
-PATH=${HOME}/.local/bin:${PATH}
-ENVEOF
+# El archivo 90-env.conf lo gestiona chezmoi (dot_config/environment.d/90-env.conf).
 systemctl --user set-environment WAYLAND_DISPLAY=wayland-1
 systemctl --user set-environment DISPLAY=:0
 systemctl --user set-environment XDG_SESSION_TYPE=wayland

@@ -1,23 +1,25 @@
 SHELL := /bin/bash
 
-PACKAGES := alacritty bash gtk-3.0 i3 i3status nvim profile wallpaper picom polybar rofi btop starship fastfetch
-PACKAGES_COMMON := bash alacritty nvim btop starship fastfetch user-scripts
-PACKAGES_I3 := alacritty bash gtk-3.0 i3 i3status nvim profile wallpaper picom polybar rofi btop starship fastfetch user-scripts
-PACKAGES_HYPRLAND := alacritty applications bash gtk-3.0 hypr waybar walker mako profile wallpaper btop starship fastfetch user-scripts
-PACKAGES_DMS := bash cwd dms-hyprland DankMaterialShell nvim fastfetch dms-alacritty readline wallpapers user-scripts
+# Overrides de perfil para chezmoi (--override-data)
+PROFILE_COMMON   := {"profile": "common"}
+PROFILE_I3       := {"profile": "i3"}
+PROFILE_HYPRLAND := {"profile": "hyprland"}
+PROFILE_DMS      := {"profile": "dms"}
 
-#PHONY hace que siempre se ejecute la accion asociada en el Makefile
-.PHONY: help fedora-hyprland fedora-gnome fedora-dms install-fedora-i3 install-fedora-hyprland install-debian-i3 install-fedora-dms install-fedora-common fedora-hacking debian-hacking git-config stow-gnome stow-i3 stow-hyprland stow-dms unstow generate clean
+.PHONY: help init fedora-common fedora-hyprland fedora-dms install-fedora-common install-fedora-hyprland install-fedora-dms fedora-hacking debian-hacking git-config apply apply-common apply-i3 apply-hyprland apply-dms update status diff clean
 
 help:
 	@cat logo
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
-fedora-common: git-config install-fedora-common stow-common clean ## Configuración básica fedora + gnome
+init: ## Primer arranque: crea la config y pregunta el perfil
+	@chezmoi init
 
-fedora-hyprland: git-config install-fedora-common install-fedora-hyprland stow-hyprland clean  ## Configuración básica fedora + hyprland
+fedora-common: git-config install-fedora-common apply-common clean ## Configuración básica fedora + gnome
 
-fedora-dms: git-config install-fedora-common install-fedora-dms stow-dms clean ## Configuración básica fedora + dank material shell
+fedora-hyprland: git-config install-fedora-common install-fedora-hyprland apply-hyprland clean ## Configuración básica fedora + hyprland
+
+fedora-dms: git-config install-fedora-common install-fedora-dms apply-dms clean ## Configuración básica fedora + dank material shell
 
 install-fedora-hyprland:
 	@bash scripts/fedora-hyprland.sh
@@ -37,60 +39,30 @@ debian-hacking: ## Herramientas de hacking y ciberseguridad para debian
 git-config:
 	@bash scripts/git-config.sh
 
-stow-common:
-	@rm -f ~/.bashrc
-	@rm -rf ~/.config/nvim
-	@for pkg in $(PACKAGES_COMMON); do \
-		echo "Stowing $$pkg..."; \
-		stow -S "$$pkg"; \
-	done
+apply: ## Aplica el perfil guardado en la config de chezmoi
+	@chezmoi apply
 
-stow-i3:
-	@rm -f ~/.bashrc
-	@rm -rf ~/.config/nvim
-	@for pkg in $(PACKAGES_I3); do \
-		echo "Stowing $$pkg..."; \
-		stow -S "$$pkg"; \
-	done
+apply-common: ## Aplica el perfil common
+	@chezmoi apply --override-data '$(PROFILE_COMMON)'
 
-stow-hyprland:
-	@rm -f ~/.bashrc
-	@rm -rf ~/.config/nvim
-	@for pkg in $(PACKAGES_HYPRLAND); do \
-		echo "Stowing $$pkg..."; \
-		stow -R "$$pkg"; \
-	done
+apply-i3: ## Aplica el perfil i3
+	@chezmoi apply --override-data '$(PROFILE_I3)'
 
-stow-dms:
-	@rm -f ~/.bashrc
-	@rm -rf ~/.config/nvim
-	@rm -rf ~/.config/DankMaterialShell/
-	@rm -rf ~/.config/hypr/
-	@rm -rf ~/.config/alacritty
-	@for pkg in $(PACKAGES_DMS); do \
-		echo "Stowing $$pkg..."; \
-		stow -R "$$pkg"; \
-	done
+apply-hyprland: ## Aplica el perfil hyprland
+	@chezmoi apply --override-data '$(PROFILE_HYPRLAND)'
 
-stow-%:
-	@echo "Stowing $*..."
-	@stow -v "$*"
+apply-dms: ## Aplica el perfil dms
+	@chezmoi apply --override-data '$(PROFILE_DMS)'
 
-unstow:  ## Unstow todos los paquetes
-	@for pkg in $(PACKAGES); do \
-		echo "Unstowing $$pkg..."; \
-		stow -v -D "$$pkg"; \
-	done
+update: ## Actualiza los dotfiles desde el remoto y aplica
+	@chezmoi update
 
-unstow-%:  ## Unstow un paquete específico (ej: make unstow-alacritty)
-	@echo "Unstowing $*..."
-	@stow -v -D "$*"
+status: ## Muestra el estado de los dotfiles
+	@chezmoi status
 
-generate:  ## Genera configs desde templates
-	@bash generate.sh
+diff: ## Muestra las diferencias
+	@chezmoi diff
 
-clean:  ## Limpia archivos generados
-	@rm -f alacritty/.config/alacritty/alacritty.toml
-	@rm -f i3/.config/i3/config
+clean: ## Limpia archivos generados
 	@rm -f *.zip
 	@echo "Archivos generados eliminados"

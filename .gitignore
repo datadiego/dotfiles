@@ -1,8 +1,7 @@
 *.zip
 *.zip.*
-hypr/.config/hypr/hyprpaper.conf
+dot_config/hypr/hyprpaper.conf
 
 # Config con API keys y plugins (se instalan desde DMS)
-DankMaterialShell/.config/DankMaterialShell/plugin_settings.json
-DankMaterialShell/.config/DankMaterialShell/plugins/
-
+dot_config/DankMaterialShell/plugin_settings.json
+dot_config/DankMaterialShell/plugins/
