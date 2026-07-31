@@ -18,7 +18,7 @@ family = "JetBrainsMono Nerd Font"
 style = "Bold Italic"
 
 [font]
-size = ${FONT_SIZE}
+size = 12
 
 [colors.primary]
 
